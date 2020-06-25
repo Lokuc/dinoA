@@ -15,12 +15,16 @@ public class BackgroundManager {
     private Sprite[] sprites;
     private float[] speeds;
     private float[] Xpos;
-    private final int countObj=6;
+    private final int countObj=11;
     private int randNum;
     private int prevNum;
     private boolean isBackSpawn=false;
+    private boolean isGrassSpawn=false;
+    private int randG;
+    private int prevG;
 
     private float timeGround=0.0f;
+    private float timeGrass=0.0f;
     private Random r;
     private int temp;
 
@@ -42,18 +46,18 @@ public class BackgroundManager {
                 600f    //back
         };
 
-//        sprites[0]=SpriteLoad.getSprite(6);
-//        sprites[1]=SpriteLoad.getSprite(5);
-//        sprites[2]=SpriteLoad.getSprite(7);
-//        sprites[3]=SpriteLoad.getSprite(4);
-//        sprites[4]=SpriteLoad.getSprite(9);
-//        sprites[5]=SpriteLoad.getSprite(8);
-            sprites[0]=new Sprite(new Texture("texture/fon/fon.png"));
-            sprites[1]=new Sprite(new Texture("texture/fon/filter.png"));
-            sprites[2]=new Sprite(new Texture("texture/fon/line.png"));
-            sprites[3]=new Sprite(new Texture("texture/fon/back.png"));
-            sprites[4]=new Sprite(new Texture("texture/fon/statuya.png"));
-            sprites[5]=new Sprite(new Texture("texture/fon/plane.png"));
+        sprites[0]=SpriteLoad.getFon(2);    //fon
+        sprites[1]=SpriteLoad.getFon(1);    //filter
+        sprites[2]=SpriteLoad.getFon(3);    //fon
+        sprites[3]=SpriteLoad.getFon(0);    //back
+        sprites[4]=SpriteLoad.getFon(5);    //statuya
+        sprites[5]=SpriteLoad.getFon(4);    //plane
+        sprites[6]=SpriteLoad.getSprite(36);//grass
+        //sprites[7]=SpriteLoad.getFon(6);    //up
+        sprites[8]=SpriteLoad.getFon(7);    //down
+        sprites[9]=SpriteLoad.getFon(8);    //grass1
+        sprites[10]=SpriteLoad.getFon(9);   //grass2
+
 
 
     }
@@ -128,6 +132,55 @@ public class BackgroundManager {
         sprites[1].setX(Xpos[1]+sprites[1].getWidth());
         sprites[1].draw(batch);
     }
+    void drawGrass(SpriteBatch batch,float delta){
+        if(Xpos[6]<-sprites[6].getWidth()){
+            Xpos[6]=0;
+        }
+        Xpos[6]-=EnemyManager.getSpeed()*delta;
+        sprites[6].setX(Xpos[6]);
+        sprites[6].draw(batch);
+        sprites[6].setX(Xpos[6]+sprites[6].getWidth());
+        sprites[6].draw(batch);
+    }
+    void drawDownGrass(SpriteBatch batch,float delta){
+        if(timeGrass>=8.5f&&!isGrassSpawn){
+            prevG=randG;
+            while (prevG==randG){
+                randG=r.nextInt(2);
+            }
+            isGrassSpawn=true;
+            Xpos[randG+9]=Gdx.graphics.getWidth();
+        }
+
+        if(isGrassSpawn) {
+            if(randG==0) {
+                if (Xpos[9] < -sprites[9].getWidth()) {
+                    isGrassSpawn=false;
+                    timeGrass=0f;
+                }
+                Xpos[9] -= EnemyManager.getSpeed() * delta * 1.4f;
+                sprites[9].setX(Xpos[9]);
+                sprites[9].draw(batch);
+            }else if(randG==1){
+                if(Xpos[10]<-sprites[10].getWidth()){
+                    isGrassSpawn=false;
+                    timeGrass=0f;
+                }
+                Xpos[10]-=EnemyManager.getSpeed()*delta*1.4f;
+                sprites[10].setX(Xpos[10]);
+                sprites[10].draw(batch);
+            }
+        }
+
+        if(Xpos[8]<-sprites[8].getWidth()){
+            Xpos[8]=0;
+        }
+        Xpos[8]-=EnemyManager.getSpeed()*delta*1.4f;
+        sprites[8].setX(Xpos[8]);
+        sprites[8].draw(batch);
+        sprites[8].setX(Xpos[8]+sprites[8].getWidth());
+        sprites[8].draw(batch);
+    }
 
 
 
@@ -168,16 +221,39 @@ public class BackgroundManager {
         sprites[5].setPosition(Gdx.graphics.getWidth(),sprites[2].getHeight()-Gdx.graphics.getHeight()/50f);
         Xpos[5]=sprites[5].getX();
 
+        w=Gdx.graphics.getWidth();
+        h=(w/sprites[6].getWidth())*sprites[6].getHeight();
+        sprites[6].setSize(w,h);
+        sprites[6].setPosition(0,sprites[2].getHeight()-sprites[6].getHeight()/1.7f);
+        Xpos[6]=sprites[6].getX();
+
+        h=(w/sprites[8].getWidth())*sprites[8].getHeight();
+        sprites[8].setSize(w,h);
+        sprites[8].setPosition(0,-sprites[2].getHeight()/5);
+        Xpos[8]=sprites[8].getX();
+
+        h=Gdx.graphics.getHeight()/2;
+        w=(h/sprites[9].getHeight())*sprites[9].getWidth();
+        sprites[9].setSize(w,h);
+        sprites[9].setPosition(Gdx.graphics.getWidth(),sprites[8].getHeight()+sprites[8].getY()-sprites[2].getHeight()/4);
+        Xpos[9]=sprites[9].getX();
+
+        w=(h/sprites[10].getHeight())*sprites[10].getWidth();
+        sprites[10].setSize(w,h);
+        sprites[10].setPosition(Gdx.graphics.getWidth(),sprites[8].getHeight()+sprites[8].getY()-sprites[2].getHeight()/4);
+        Xpos[10]=sprites[10].getX();
+
 
         return sprites[2].getHeight();
     }
 
     void reSpawn(){
-
+        //TODO
     }
 
     void updTime(float delta){
         timeGround+=delta;
+        timeGrass+=delta;
     }
 
 }

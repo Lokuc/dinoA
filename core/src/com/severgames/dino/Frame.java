@@ -118,6 +118,8 @@ public class Frame extends ScreenAdapter {
             dino.draw(batch);
             enemy.draw1(batch);
             money.draw(batch);
+            manager.drawGrass(batch,delta);
+            manager.drawDownGrass(batch,delta);
             manager.drawFilter(batch,delta);
             font.draw(batch,Gdx.graphics.getFramesPerSecond()+" fps",200,500);
             if(Gdx.input.isKeyPressed(Input.Keys.Z)) {

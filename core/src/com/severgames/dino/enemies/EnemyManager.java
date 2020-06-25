@@ -81,8 +81,7 @@ public class EnemyManager implements Mother {
     }
     private void spaw(){
         int count = 2;
-        //type=r.nextInt(count);
-        type=0;
+        type=r.nextInt(count);
         isSpawn=true;
         if(type==0){
             wormix.spawn();

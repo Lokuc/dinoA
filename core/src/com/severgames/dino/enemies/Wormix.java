@@ -35,8 +35,7 @@ class Wormix {
             X= Gdx.graphics.getWidth()+sprite.getWidth()/2;
             sprite.setX(X);
             wet.setX(X+sprite.getWidth()/2f);
-            //type=new Random().nextBoolean(); todo
-            type=true;
+            type=new Random().nextBoolean();
             sprite2.setX(X);
         }
 
@@ -94,7 +93,7 @@ class Wormix {
             temp.x+=temp.width/5;
             temp.width-=temp.width/5;
             temp.y+=temp.height-temp.height/4;
-            temp.height=temp.height/10;
+            temp.height=temp.height/9;
             return temp;
         }
 }
