@@ -29,7 +29,6 @@ class Dino {
 
     Dino(){
         money=new Data().getMoney();
-        System.out.println(money);
         gAnim= new Sprite[2];
         gAnim[0]=SpriteLoad.getSprite(17);
         gAnim[1]=SpriteLoad.getSprite(18);
@@ -100,10 +99,10 @@ class Dino {
         }
         if (!inGopnik&&!inFly&&(Gdx.input.isKeyJustPressed(Input.Keys.UP)||Gdx.input.isKeyJustPressed(Input.Keys.W))){
             inFly=true;
-            speedFly=Gdx.graphics.getHeight()/37f;
+            speedFly=Gdx.graphics.getHeight()/35f;
         }
         if(inFly){
-            speedFly-=delta*40;
+            speedFly-=delta*Gdx.graphics.getHeight()/16f;
             Y+=speedFly;
             checkGround(rect);
         }
@@ -206,7 +205,6 @@ class Dino {
             if(getReckt().overlaps(money.getRect()[i])){
                 money.delete(i);
                 this.money++;
-                System.out.println(this.money);
                 new Data().saveMoney(this.money);
             }
         }

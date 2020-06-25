@@ -31,8 +31,7 @@ class Wall {
         sprite1.setX(X);
     }
     void update(float delta){
-        X-= EnemyManager.speed*delta;
-        EnemyManager.speed+=delta;
+        X-= EnemyManager.getSpeed()*delta;
         if(X<-sprite.getWidth()*1.5f){
             isSpawn=false;
             mother.imDead(getClass()+"");

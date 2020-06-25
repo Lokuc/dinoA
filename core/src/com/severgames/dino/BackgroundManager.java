@@ -2,6 +2,7 @@ package com.severgames.dino;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.severgames.dino.enemies.EnemyManager;
@@ -41,12 +42,18 @@ public class BackgroundManager {
                 600f    //back
         };
 
-        sprites[0]=SpriteLoad.getSprite(6);
-        sprites[1]=SpriteLoad.getSprite(5);
-        sprites[2]=SpriteLoad.getSprite(7);
-        sprites[3]=SpriteLoad.getSprite(4);
-        sprites[4]=SpriteLoad.getSprite(9);
-        sprites[5]=SpriteLoad.getSprite(8);
+//        sprites[0]=SpriteLoad.getSprite(6);
+//        sprites[1]=SpriteLoad.getSprite(5);
+//        sprites[2]=SpriteLoad.getSprite(7);
+//        sprites[3]=SpriteLoad.getSprite(4);
+//        sprites[4]=SpriteLoad.getSprite(9);
+//        sprites[5]=SpriteLoad.getSprite(8);
+            sprites[0]=new Sprite(new Texture("texture/fon/fon.png"));
+            sprites[1]=new Sprite(new Texture("texture/fon/filter.png"));
+            sprites[2]=new Sprite(new Texture("texture/fon/line.png"));
+            sprites[3]=new Sprite(new Texture("texture/fon/back.png"));
+            sprites[4]=new Sprite(new Texture("texture/fon/statuya.png"));
+            sprites[5]=new Sprite(new Texture("texture/fon/plane.png"));
 
 
     }
@@ -75,14 +82,14 @@ public class BackgroundManager {
             isBackSpawn=true;
         }
         if(randNum==3) {
-            Xpos[3] -= EnemyManager.speed * delta;
+            Xpos[3] -= EnemyManager.getSpeed() * delta;
             sprites[3].setX(Xpos[3]);
             sprites[3].draw(batch);
             if(Xpos[3]<-sprites[3].getWidth()){
                 isBackSpawn=false;
             }
         }else if(randNum==4){
-            Xpos[4] -= EnemyManager.speed * delta;
+            Xpos[4] -= EnemyManager.getSpeed() * delta;
             sprites[4].setX(Xpos[4]);
             sprites[4].draw(batch);
             if(Xpos[4]<-sprites[4].getWidth()){
@@ -95,7 +102,7 @@ public class BackgroundManager {
         if(Xpos[2]<-sprites[2].getWidth()){
             Xpos[2]=0;
         }
-        Xpos[2]-=EnemyManager.speed*delta;
+        Xpos[2]-=EnemyManager.getSpeed()*delta;
         sprites[2].setX(Xpos[2]);
         sprites[2].draw(batch);
         sprites[2].setX(Xpos[2]+sprites[2].getWidth());
@@ -103,7 +110,7 @@ public class BackgroundManager {
     }
     void drawPlane(SpriteBatch batch,float delta){
         if(randNum==5){
-            Xpos[5] -= EnemyManager.speed * delta;
+            Xpos[5] -= EnemyManager.getSpeed() * delta;
             sprites[5].setX(Xpos[5]);
             sprites[5].draw(batch);
             if(Xpos[5]<-sprites[5].getWidth()){

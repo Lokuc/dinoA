@@ -13,6 +13,7 @@ import java.util.Random;
 class Wormix {
         private static Sprite sprite;
         private static Sprite sprite2;
+        private static Sprite wet;
         private boolean isSpawn;
         private boolean type;
         private float X;
@@ -24,6 +25,7 @@ class Wormix {
             this.mother=mother;
             sprite= SpriteLoad.getSprite(0);
             sprite2=SpriteLoad.getSprite(34);
+            wet=SpriteLoad.getSprite(35);
             isSpawn=false;
             type=true;
         }
@@ -32,19 +34,21 @@ class Wormix {
             isSpawn=true;
             X= Gdx.graphics.getWidth()+sprite.getWidth()/2;
             sprite.setX(X);
-            type=new Random().nextBoolean();
+            wet.setX(X+sprite.getWidth()/2f);
+            //type=new Random().nextBoolean(); todo
+            type=true;
             sprite2.setX(X);
         }
 
         void update(float delta){
-            X-= EnemyManager.speed*delta;
-            EnemyManager.speed+=delta;
+            X-= EnemyManager.getSpeed()*delta;
             if(X<-sprite.getWidth()){
                 isSpawn=false;
                 mother.imDead(getClass()+"");
             }
             sprite.setX(X);
             sprite2.setX(X);
+            wet.setX(X+sprite.getWidth()/2f);
         }
 
         void draw(SpriteBatch batch){
@@ -55,6 +59,12 @@ class Wormix {
             }
         }
 
+        void draw1(SpriteBatch batch){
+            if(type){
+                wet.draw(batch);
+            }
+        }
+
         void resize(float H){
             h = Gdx.graphics.getHeight()/5;
             w = (h/sprite.getHeight()*sprite.getWidth());
@@ -62,12 +72,19 @@ class Wormix {
             sprite2.setSize(w,h);
             sprite.setPosition(Gdx.graphics.getWidth()+sprite.getWidth()/2,H);
             sprite2.setPosition(Gdx.graphics.getWidth()+sprite.getWidth()/2,H);
+            w*=1.3f;
+            h=w/wet.getWidth()*wet.getHeight();
+            wet.setSize(w,h);
+            wet.setPosition(Gdx.graphics.getWidth()+sprite.getWidth()/2-wet.getWidth()/3,H+wet.getHeight()/40);
+
+
+
         }
 
         Rectangle getRect(){
             temp=sprite.getBoundingRectangle(); //TODO edit temp
             temp.width=temp.width/6;
-            temp.height-=temp.height/6;
+            temp.height-=temp.height/5;
             return temp;
         }
         Rectangle getGround(){
@@ -76,7 +93,7 @@ class Wormix {
             //temp.width-=temp.width/5;
             temp.x+=temp.width/5;
             temp.width-=temp.width/5;
-            temp.y+=temp.height-temp.height/7;
+            temp.y+=temp.height-temp.height/4;
             temp.height=temp.height/10;
             return temp;
         }

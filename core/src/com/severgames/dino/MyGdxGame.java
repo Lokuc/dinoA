@@ -3,6 +3,7 @@ package com.severgames.dino;
 
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 
 public class MyGdxGame extends Game {
 
@@ -19,6 +20,7 @@ public class MyGdxGame extends Game {
 
 	@Override
 	public void create() {
+		//Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode()); TODO
 		myGdxGame=this;
 		menu = new Menu();
 		setScreen(new loadScreen());

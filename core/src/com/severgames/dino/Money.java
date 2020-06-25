@@ -61,7 +61,7 @@ class Money {
                 if (num == sprite.length) {
                     num = 0;
                 }
-                X -= EnemyManager.speed * delta;
+                X -= EnemyManager.getSpeed() * delta;
                 if (X < -sprite[0].getWidth()) {
                     active = false;
                 }
@@ -78,7 +78,7 @@ class Money {
                     active=false;
                     return;
                 }
-                X -= EnemyManager.speed * delta;
+                X -= EnemyManager.getSpeed() * delta;
                 if (X < -hide[num].getWidth()) {
                     hiden = false;
                     active=false;

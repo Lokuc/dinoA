@@ -1,5 +1,6 @@
 package com.severgames.dino.enemies;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -8,7 +9,8 @@ import java.util.Random;
 
 public class EnemyManager implements Mother {
 
-    public static float speed = 600f;
+    private static float speed = 600f;
+    private static float speedAdd=0f;
     private Wormix wormix;
     private Wall wall;
     private int type;
@@ -23,11 +25,16 @@ public class EnemyManager implements Mother {
         r=new Random();
         wall=new Wall(this);
         wormix = new Wormix(this);
-        timeA=4f;
+        timeA=1f;
+    }
+
+    public static float getSpeed(){
+        return speed+speedAdd;
     }
 
     public void update(float delta){
         timeA-=delta/40;
+        speedAdd+=delta;
         if(isSpawn) {
             if (type == 0) {
                 wormix.update(delta);
@@ -55,6 +62,9 @@ public class EnemyManager implements Mother {
             if (type == 1) {
                 wall.draw1(batch);
             }
+            if(type==0){
+                wormix.draw1(batch);
+            }
         }
     }
     public Rectangle getRect(){
@@ -71,8 +81,8 @@ public class EnemyManager implements Mother {
     }
     private void spaw(){
         int count = 2;
-        type=r.nextInt(count);
-        //type=1;
+        //type=r.nextInt(count);
+        type=0;
         isSpawn=true;
         if(type==0){
             wormix.spawn();
@@ -81,6 +91,7 @@ public class EnemyManager implements Mother {
         }
     }
     public void resize(float H,float h){
+        speed= Gdx.graphics.getWidth()/2f;
         wormix.resize(H);
         wall.resize(H,h);
     }
@@ -103,5 +114,9 @@ public class EnemyManager implements Mother {
 
     public Color getColor() {
         return Color.RED;
+    }
+
+    public void respawn() {
+        speedAdd=0f;
     }
 }

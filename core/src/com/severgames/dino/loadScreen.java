@@ -45,7 +45,7 @@ public class loadScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0.0f,0.0f,0.0f,0.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if(!sl.getLoad()){
-            sl.loadi();
+            //sl.loadi();
         }else{
             BackgroundManager bg = new BackgroundManager();
             bg.load();

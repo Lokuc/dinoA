@@ -7,11 +7,10 @@ import com.severgames.dino.MyGdxGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width=1200;
-		config.height=675;
 		config.vSyncEnabled=true;
-		//TextutePacker
 		config.title="SeverGames";
+		config.width=1200;
+		config.height=600;
 		config.samples=16;
 		new LwjglApplication(new MyGdxGame(), config);
 	}

@@ -62,6 +62,7 @@ public class Frame extends ScreenAdapter {
                 if(over.id(id)){
                     dino.spawn();
                     enemy.spawn();
+                    enemy.respawn();
                     active=true;
                     manager.reSpawn();
                     money.respawn();
