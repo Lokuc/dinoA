@@ -101,6 +101,7 @@ public class SpriteLoad  {
             atlas = new TextureAtlas(Gdx.files.absolute("./texture/output/res2.atlas").path());
         }catch (Exception e){
             FileHandle log = Gdx.files.absolute("log.txt");
+            log.writeString(Gdx.files.absolute("./texture/output/res2.atlas").path(),true);
             log.writeString(e.getMessage(),true);
 
             Gdx.app.log("g",e.getMessage());
