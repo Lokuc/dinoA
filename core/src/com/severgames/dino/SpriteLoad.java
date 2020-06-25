@@ -98,7 +98,7 @@ public class SpriteLoad  {
             settings.maxHeight = 16384;
             settings.maxWidth = 16384;
             TexturePacker.process(settings, "./texture/input",  "./texture/output", "res2");
-            atlas = new TextureAtlas(Gdx.files.absolute("./texture/output/res2.atlas").path());
+            atlas = new TextureAtlas("./texture/output/res2.atlas");
         }catch (Exception e){
             FileHandle log = Gdx.files.absolute("log.txt");
             log.writeString(Gdx.files.absolute("./texture/output/res2.atlas").path(),true);
