@@ -14,7 +14,6 @@ public class Menu extends ScreenAdapter implements ClickListener {
     private OrthographicCamera camera;
     private Button start;
     private Button settings;
-    private BackgroundManager background;
 
 
     Menu(){
@@ -40,9 +39,14 @@ public class Menu extends ScreenAdapter implements ClickListener {
     }
 
     @Override
+    public void resize(int width, int height) {
+        camera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        batch.setProjectionMatrix(camera.combined);
+    }
+
+    @Override
     public void render(float delta) {
         camera.update();
-        batch.setProjectionMatrix(camera.combined);
         Gdx.gl.glClearColor(0.1f,0.1f,0.3f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -64,7 +68,7 @@ public class Menu extends ScreenAdapter implements ClickListener {
             MyGdxGame.myGdxGame.setFrame();
         }
         if(settings.id(id)){
-
+            MyGdxGame.myGdxGame.setSetting();
         }
     }
 }

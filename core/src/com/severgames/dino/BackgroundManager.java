@@ -48,15 +48,15 @@ public class BackgroundManager {
 
         sprites[0]=SpriteLoad.getFon(2);    //fon
         sprites[1]=SpriteLoad.getFon(1);    //filter
-        sprites[2]=SpriteLoad.getFon(3);    //fon
+        sprites[2]=SpriteLoad.getFon(3);    //line
         sprites[3]=SpriteLoad.getFon(0);    //back
         sprites[4]=SpriteLoad.getFon(5);    //statuya
         sprites[5]=SpriteLoad.getFon(4);    //plane
         sprites[6]=SpriteLoad.getSprite(36);//grass
         //sprites[7]=SpriteLoad.getFon(6);    //up
-        sprites[8]=SpriteLoad.getFon(7);    //down
-        sprites[9]=SpriteLoad.getFon(8);    //grass1
-        sprites[10]=SpriteLoad.getFon(9);   //grass2
+        sprites[8]=SpriteLoad.getFon(6);    //down
+        sprites[9]=SpriteLoad.getFon(7);    //grass1
+        sprites[10]=SpriteLoad.getFon(8);   //grass2
 
 
 
@@ -248,7 +248,13 @@ public class BackgroundManager {
     }
 
     void reSpawn(){
-        //TODO
+        timeGrass=0f;
+        timeGround=0f;
+        Xpos[0]=0f;
+        Xpos[1]=0f;
+        Xpos[2]=0f;
+        Xpos[6]=0f;
+        Xpos[8]=0f;
     }
 
     void updTime(float delta){

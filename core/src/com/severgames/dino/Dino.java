@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 class Dino {
 
+    private Dj dj;
     private Sprite sprite;
     private boolean inFly=false;
     private int Y=0;
@@ -25,9 +26,12 @@ class Dino {
     private Rectangle temp=new Rectangle();
     private Sprite[] fly;
     private int money;
+    private float lon;
+    private String tmp="";
 
 
-    Dino(){
+    Dino(Dj dj){
+        this.dj=dj;
         money=new Data().getMoney();
         gAnim= new Sprite[2];
         gAnim[0]=SpriteLoad.getSprite(17);
@@ -83,6 +87,7 @@ class Dino {
     }
 
     void update(float delta, Rectangle rect){
+        lon+=delta*4;
         timeAnim+=delta;
         if(!inFly&&!onWorm) {
             if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
@@ -205,8 +210,18 @@ class Dino {
             if(getReckt().overlaps(money.getRect()[i])){
                 money.delete(i);
                 this.money++;
+                dj.playCoin();
                 new Data().saveMoney(this.money);
             }
         }
+    }
+
+    public String getLong() {
+        tmp=lon+"";
+        tmp=tmp.substring(0,tmp.indexOf("."));
+        for(int i=tmp.length();i<14;i++){
+            tmp="0"+tmp;
+        }
+        return tmp;
     }
 }

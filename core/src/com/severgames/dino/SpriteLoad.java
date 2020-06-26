@@ -1,7 +1,5 @@
 package com.severgames.dino;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -17,7 +15,6 @@ public class SpriteLoad  {
             "texture/fon/line.png",
             "texture/fon/plane.png",
             "texture/fon/statuya.png",
-            "texture/fon/up.png",
             "texture/fon/down.png",
             "texture/fon/grass1.png",
             "texture/fon/grass2.png"
@@ -60,7 +57,8 @@ public class SpriteLoad  {
             "hide6",      //33
             "2",
             "1",             //35
-            "grass"
+            "grass",
+            "count"
 
 
     };

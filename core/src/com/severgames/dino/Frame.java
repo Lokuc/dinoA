@@ -3,11 +3,17 @@ package com.severgames.dino;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.severgames.dino.enemies.EnemyManager;
@@ -21,6 +27,7 @@ public class Frame extends ScreenAdapter {
     private Dino dino;
     private EnemyManager enemy;
     private boolean active=true;
+    private Sprite count;
     private Button over;
     private Button menu;
     private float score=0f;
@@ -29,18 +36,27 @@ public class Frame extends ScreenAdapter {
     private BackgroundManager manager;
     private ShapeRenderer shapeRenderer;
     private MoneyManager money;
+    private BitmapFont ft;
 
 
     Frame(BackgroundManager manager){
         this.manager = manager;
         shapeRenderer=new ShapeRenderer();
         money=new MoneyManager();
-
-
+        try {
+            FreeTypeFontGenerator f = new FreeTypeFontGenerator(new FileHandle("font.ttf"));
+            FreeTypeFontGenerator.FreeTypeFontParameter parameter= new FreeTypeFontGenerator.FreeTypeFontParameter();
+            parameter.size=20;
+            f.generateData(parameter);
+            ft = f.generateFont(parameter);
+        }catch (Exception e){
+            new Data().log("font not found");
+        }
+        ft.setColor(Color.CORAL);
         batch = new SpriteBatch();
         camera=new OrthographicCamera();
         camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        dino = new Dino();
+        dino = new Dino(dj);
         dino.spawn();
         enemy= new EnemyManager();
         menu=new Button("texture/UI/menu.png");
@@ -88,6 +104,7 @@ public class Frame extends ScreenAdapter {
         shapeRenderer.updateMatrices();
         batch.setProjectionMatrix(camera.combined);
         dino.spawn();
+        count = SpriteLoad.getSprite(37);
         enemy.spawn();
         active=true;
         manager.reSpawn();
@@ -121,7 +138,9 @@ public class Frame extends ScreenAdapter {
             manager.drawGrass(batch,delta);
             manager.drawDownGrass(batch,delta);
             manager.drawFilter(batch,delta);
-            font.draw(batch,Gdx.graphics.getFramesPerSecond()+" fps",200,500);
+            count.draw(batch);
+            ft.draw(batch,dino.getLong(),count.getX()+10,count.getY()+25);
+            ft.draw(batch,Gdx.graphics.getFramesPerSecond()+" fps",100,500);
             if(Gdx.input.isKeyPressed(Input.Keys.Z)) {
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                 tmp(dino.getReckt(), dino.getColor());
@@ -173,6 +192,9 @@ public class Frame extends ScreenAdapter {
         camera.update();
         float tmp = manager.resize();
         money.resize(tmp);
+
+        count.setSize(50/count.getHeight()*count.getWidth(),50);
+        count.setPosition(Gdx.graphics.getWidth()-count.getWidth()*1.5f,Gdx.graphics.getWidth()/40);
 
         over.setSizeW(4);
         over.setPosition(ClickListener.POSITION_HORIZONTAL.Center, ClickListener.POSITION_VERTICAL.Center);

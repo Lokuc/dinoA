@@ -12,6 +12,7 @@ public class EnemyManager implements Mother {
     private static float speed = 600f;
     private static float speedAdd=0f;
     private Wormix wormix;
+    private Wormix2 wormix2;
     private Wall wall;
     private int type;
     private boolean isSpawn;
@@ -25,6 +26,7 @@ public class EnemyManager implements Mother {
         r=new Random();
         wall=new Wall(this);
         wormix = new Wormix(this);
+        wormix2=new Wormix2(this);
         timeA=1f;
     }
 
@@ -40,6 +42,8 @@ public class EnemyManager implements Mother {
                 wormix.update(delta);
             }else if(type==1){
                 wall.update(delta);
+            }else if(type==2){
+                wormix2.update(delta);
             }
         }else{
             time+=delta;
@@ -54,6 +58,8 @@ public class EnemyManager implements Mother {
                 wormix.draw(batch);
             } else if (type == 1) {
                 wall.draw(batch);
+            }else if(type==2){
+                wormix2.draw(batch);
             }
         }
     }
@@ -72,6 +78,8 @@ public class EnemyManager implements Mother {
             return wormix.getRect();
         }else if(type==1){
             return wall.getRect();
+        }else if(type==2){
+            return wormix2.getRect();
         }
         return null;
     }
@@ -80,19 +88,22 @@ public class EnemyManager implements Mother {
         spaw();
     }
     private void spaw(){
-        int count = 2;
+        int count = 3;
         type=r.nextInt(count);
         isSpawn=true;
         if(type==0){
             wormix.spawn();
         }else if(type==1){
             wall.spawn();
+        }else if(type==2){
+            wormix2.spawn();
         }
     }
     public void resize(float H,float h){
         speed= Gdx.graphics.getWidth()/2f;
         wormix.resize(H);
         wall.resize(H,h);
+        wormix2.resize(H);
     }
     @Override
     public void imDead(String type) {
@@ -103,6 +114,8 @@ public class EnemyManager implements Mother {
     public Rectangle getGround() {
         if(isSpawn&&type==0){
             return wormix.getGround();
+        }else if(isSpawn&&type==2){
+            return wormix2.getGround();
         }
         return null;
     }

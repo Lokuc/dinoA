@@ -2,10 +2,11 @@ package com.severgames.dino;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.files.FileHandle;
 
 public class Data {
 
-    private static Preferences preferences;
+    private Preferences preferences;
 
     public Data() {
         if(preferences==null){
@@ -22,4 +23,8 @@ public class Data {
         preferences.putInteger("money",i);
         preferences.flush();
     }
+     public void log(String log){
+        new FileHandle("log.txt").writeString(log,true);
+     }
+
 }
