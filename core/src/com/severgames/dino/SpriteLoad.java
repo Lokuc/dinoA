@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 
-public class SpriteLoad  {
+public class SpriteLoad {
 
     private static Sprite[] sprites;
     private static  String[] path = new String[]{
@@ -105,7 +105,9 @@ public class SpriteLoad  {
         iter++;
     }
 
-    float getCount() {
+    float getCounts() {
         return path.length;
     }
+
+
 }

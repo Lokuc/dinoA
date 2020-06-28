@@ -8,6 +8,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,7 +21,7 @@ import com.severgames.dino.enemies.EnemyManager;
 import com.severgames.lib.Button;
 import com.severgames.lib.ClickListener;
 
-public class Frame extends ScreenAdapter {
+public class Frame extends ScreenAdapter implements ClickListener{
 
     private SpriteBatch batch;
     private OrthographicCamera camera;
@@ -37,6 +38,10 @@ public class Frame extends ScreenAdapter {
     private ShapeRenderer shapeRenderer;
     private MoneyManager money;
     private BitmapFont ft;
+    private boolean pause;
+    private Button resume;
+    private Button quit;
+    private Sprite filter;
 
 
     Frame(BackgroundManager manager){
@@ -52,12 +57,21 @@ public class Frame extends ScreenAdapter {
         }catch (Exception e){
             new Data().log("font not found");
         }
+        filter=new Sprite(new Texture("texture/UI/filter.png"));
         ft.setColor(Color.CORAL);
         batch = new SpriteBatch();
         camera=new OrthographicCamera();
         camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         dino = new Dino(dj);
         dino.spawn();
+        resume=new Button("texture/UI/Resume.png");
+        resume.setSizeH(8);
+        resume.setPosition(ClickListener.POSITION_HORIZONTAL.Center, ClickListener.POSITION_VERTICAL.Center);
+        resume.addClickListener(this,camera);
+        quit=new Button("texture/UI/Quit.png");
+        quit.setSizeH(8);
+        quit.setPosition(POSITION_HORIZONTAL.Center,POSITION_VERTICAL.DownCenter);
+        quit.addClickListener(this,camera);
         enemy= new EnemyManager();
         menu=new Button("texture/UI/menu.png");
         menu.setSizeW(4);
@@ -98,6 +112,7 @@ public class Frame extends ScreenAdapter {
 
     @Override
     public void show() {
+        pause=false;
         camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         dj.playFon();
         shapeRenderer.setProjectionMatrix(camera.combined);
@@ -112,6 +127,12 @@ public class Frame extends ScreenAdapter {
         dj.resumeFon();
     }
 
+
+    @Override
+    public void pause() {
+        pause=true;
+    }
+
     @Override
     public void render(float delta) {
 
@@ -123,36 +144,21 @@ public class Frame extends ScreenAdapter {
         //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
         if(active) {
-            update(delta);
-
-            batch.begin();
-
-            manager.drawFon(batch,delta);
-            manager.drawBack(batch,delta);
-            manager.drawPlane(batch,delta);
-            manager.drawLine(batch,delta);
-            enemy.draw(batch);
-            dino.draw(batch);
-            enemy.draw1(batch);
-            money.draw(batch);
-            manager.drawGrass(batch,delta);
-            manager.drawDownGrass(batch,delta);
-            manager.drawFilter(batch,delta);
-            count.draw(batch);
-            ft.draw(batch,dino.getLong(),count.getX()+10,count.getY()+25);
-            ft.draw(batch,Gdx.graphics.getFramesPerSecond()+" fps",100,500);
-            if(Gdx.input.isKeyPressed(Input.Keys.Z)) {
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                tmp(dino.getReckt(), dino.getColor());
-                tmp(enemy.getRect(), enemy.getColor());
-                tmp(enemy.getGround(), enemy.getGroundColor());
-                for(Rectangle re:money.getRect()){
-                    tmp(re,money.getColor());
-                }
-                shapeRenderer.end();
+            if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+                pause=!pause;
             }
+            if(!pause) {
+                update(delta);
+                draw();
+                batch.end();
+            }else{
+                draw();
+                filter.draw(batch);
+                resume.draw(batch);
+                quit.draw(batch);
+                batch.end();
 
-            batch.end();
+            }
         }else {
             batch.begin();
             over.draw(batch);
@@ -160,6 +166,34 @@ public class Frame extends ScreenAdapter {
             batch.end();
         }
 
+    }
+
+    private void draw() {
+        batch.begin();
+        manager.drawFon(batch);
+        manager.drawBack(batch);
+        manager.drawPlane(batch);
+        manager.drawLine(batch);
+        enemy.draw(batch);
+        dino.draw(batch);
+        enemy.draw1(batch);
+        money.draw(batch);
+        manager.drawGrass(batch);
+        manager.drawDownGrass(batch);
+        manager.drawFilter(batch);
+        count.draw(batch);
+        ft.draw(batch, dino.getLong(), count.getX() + 10, count.getY() + 25);
+        ft.draw(batch, Gdx.graphics.getFramesPerSecond() + " fps", 100, 500);
+        if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            tmp(dino.getReckt(), dino.getColor());
+            tmp(enemy.getRect(), enemy.getColor());
+            tmp(enemy.getGround(), enemy.getGroundColor());
+            for (Rectangle re : money.getRect()) {
+                tmp(re, money.getColor());
+            }
+            shapeRenderer.end();
+        }
     }
 
     private void tmp(Rectangle r,Color c){
@@ -171,7 +205,7 @@ public class Frame extends ScreenAdapter {
 
 
     private void update(float delta){
-        manager.updTime(delta);
+        manager.update(delta);
         score+=delta*3;
 
         money.update(delta);
@@ -190,6 +224,11 @@ public class Frame extends ScreenAdapter {
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.updateMatrices();
         camera.update();
+        quit.setSizeH(8);
+        quit.setPosition(POSITION_HORIZONTAL.Center,POSITION_VERTICAL.DownCenter);
+        resume.setSizeH(8);
+        resume.setPosition(POSITION_HORIZONTAL.Center,POSITION_VERTICAL.Center);
+        filter.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         float tmp = manager.resize();
         money.resize(tmp);
 
@@ -210,5 +249,12 @@ public class Frame extends ScreenAdapter {
         active=false;
         dj.pause();
         dj.playEnd();
+    }
+
+    @Override
+    public void click(String id) {
+        if(resume.id(id)){
+            pause=false;
+        }
     }
 }

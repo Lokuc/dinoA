@@ -61,19 +61,31 @@ public class BackgroundManager {
 
 
     }
+    void update(float delta){
+        timeGround+=delta;
+        timeGrass+=delta;
+        updateFon(delta);
+        updateBack(delta);
+        updateLine(delta);
+        updatePlane(delta);
+        updateFilter(delta);
+        updateGrass(delta);
+        updateDownGrass(delta);
+    }
 
-
-    void drawFon(SpriteBatch batch, float delta) {
+    private void updateFon(float delta){
         if(Xpos[0]<-sprites[0].getWidth()){
             Xpos[0]=0;
         }
         Xpos[0]-=speeds[0]*delta;
+    }
+    void drawFon(SpriteBatch batch) {
         sprites[0].setX(Xpos[0]);
         sprites[0].draw(batch);
         sprites[0].setX(Xpos[0]+sprites[0].getWidth());
         sprites[0].draw(batch);
     }
-    void drawBack(SpriteBatch batch,float delta){
+    private void updateBack(float delta){
         if(!isBackSpawn&&timeGround >= temp){
             prevNum=randNum;
             while(prevNum==randNum) {
@@ -88,61 +100,75 @@ public class BackgroundManager {
         if(randNum==3) {
             Xpos[3] -= EnemyManager.getSpeed() * delta;
             sprites[3].setX(Xpos[3]);
-            sprites[3].draw(batch);
             if(Xpos[3]<-sprites[3].getWidth()){
                 isBackSpawn=false;
             }
         }else if(randNum==4){
             Xpos[4] -= EnemyManager.getSpeed() * delta;
             sprites[4].setX(Xpos[4]);
-            sprites[4].draw(batch);
             if(Xpos[4]<-sprites[4].getWidth()){
                 isBackSpawn=false;
             }
         }
-
     }
-    void drawLine(SpriteBatch batch,float delta) {
+    void drawBack(SpriteBatch batch){
+        if(randNum==3) {
+            sprites[3].draw(batch);
+        }else if(randNum==4){
+            sprites[4].draw(batch);
+        }
+    }
+    private void updateLine(float delta){
         if(Xpos[2]<-sprites[2].getWidth()){
             Xpos[2]=0;
         }
         Xpos[2]-=EnemyManager.getSpeed()*delta;
+    }
+    void drawLine(SpriteBatch batch) {
         sprites[2].setX(Xpos[2]);
         sprites[2].draw(batch);
         sprites[2].setX(Xpos[2]+sprites[2].getWidth());
         sprites[2].draw(batch);
     }
-    void drawPlane(SpriteBatch batch,float delta){
+    private void updatePlane(float delta){
         if(randNum==5){
             Xpos[5] -= EnemyManager.getSpeed() * delta;
             sprites[5].setX(Xpos[5]);
-            sprites[5].draw(batch);
             if(Xpos[5]<-sprites[5].getWidth()){
                 isBackSpawn=false;
             }
         }
     }
-    void drawFilter(SpriteBatch batch,float delta){
+    void drawPlane(SpriteBatch batch){
+        if(randNum==5){
+            sprites[5].draw(batch);
+        }
+    }
+    private void updateFilter(float delta){
         if(Xpos[1]<-sprites[1].getWidth()){
             Xpos[1]=0;
         }
         Xpos[1]-=speeds[1]*delta;
+    }
+    void drawFilter(SpriteBatch batch){
         sprites[1].setX(Xpos[1]);
         sprites[1].draw(batch);
         sprites[1].setX(Xpos[1]+sprites[1].getWidth());
         sprites[1].draw(batch);
     }
-    void drawGrass(SpriteBatch batch,float delta){
+    private void updateGrass(float delta){
         if(Xpos[6]<-sprites[6].getWidth()){
             Xpos[6]=0;
         }
         Xpos[6]-=EnemyManager.getSpeed()*delta;
+    }
+    void drawGrass(SpriteBatch batch){
         sprites[6].setX(Xpos[6]);
         sprites[6].draw(batch);
         sprites[6].setX(Xpos[6]+sprites[6].getWidth());
         sprites[6].draw(batch);
     }
-    void drawDownGrass(SpriteBatch batch,float delta){
+    private void updateDownGrass(float delta){
         if(timeGrass>=8.5f&&!isGrassSpawn){
             prevG=randG;
             while (prevG==randG){
@@ -151,7 +177,6 @@ public class BackgroundManager {
             isGrassSpawn=true;
             Xpos[randG+9]=Gdx.graphics.getWidth();
         }
-
         if(isGrassSpawn) {
             if(randG==0) {
                 if (Xpos[9] < -sprites[9].getWidth()) {
@@ -160,7 +185,6 @@ public class BackgroundManager {
                 }
                 Xpos[9] -= EnemyManager.getSpeed() * delta * 1.4f;
                 sprites[9].setX(Xpos[9]);
-                sprites[9].draw(batch);
             }else if(randG==1){
                 if(Xpos[10]<-sprites[10].getWidth()){
                     isGrassSpawn=false;
@@ -168,7 +192,6 @@ public class BackgroundManager {
                 }
                 Xpos[10]-=EnemyManager.getSpeed()*delta*1.4f;
                 sprites[10].setX(Xpos[10]);
-                sprites[10].draw(batch);
             }
         }
 
@@ -176,6 +199,15 @@ public class BackgroundManager {
             Xpos[8]=0;
         }
         Xpos[8]-=EnemyManager.getSpeed()*delta*1.4f;
+    }
+    void drawDownGrass(SpriteBatch batch){
+        if(isGrassSpawn) {
+            if(randG==0) {
+                sprites[9].draw(batch);
+            }else if(randG==1){
+                sprites[10].draw(batch);
+            }
+        }
         sprites[8].setX(Xpos[8]);
         sprites[8].draw(batch);
         sprites[8].setX(Xpos[8]+sprites[8].getWidth());
@@ -257,9 +289,5 @@ public class BackgroundManager {
         Xpos[8]=0f;
     }
 
-    void updTime(float delta){
-        timeGround+=delta;
-        timeGrass+=delta;
-    }
 
 }
