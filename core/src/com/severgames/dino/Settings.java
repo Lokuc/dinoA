@@ -4,16 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.severgames.lib.Button;
 import com.severgames.lib.CheckBox;
-import com.sun.org.apache.xpath.internal.operations.Or;
+import com.severgames.lib.ClickListener;
 
-class Settings extends ScreenAdapter {
+class Settings extends ScreenAdapter implements ClickListener {
 
     private CheckBox music;
     private CheckBox sound;
     private OrthographicCamera camera;
     private SpriteBatch batch;
+    private Button back;
+
 
 
     Settings(){
@@ -22,6 +26,10 @@ class Settings extends ScreenAdapter {
         music=new CheckBox(camera);
         sound=new CheckBox(camera);
         sound.addY();
+        back  = new Button(new Sprite(SpriteLoad.getUI(9)));
+        back.setSizeH(12);
+        back.setPosition(ClickListener.POSITION_HORIZONTAL.LeftBottom, POSITION_VERTICAL.UpCenter);
+        back.addClickListener(this,camera);
         batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
     }
@@ -35,6 +43,7 @@ class Settings extends ScreenAdapter {
         batch.begin();
         sound.draw(batch);
         music.draw(batch);
+        back.draw(batch);
         batch.end();
     }
 
@@ -42,11 +51,21 @@ class Settings extends ScreenAdapter {
     public void resize(int width, int height) {
         camera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         batch.setProjectionMatrix(camera.combined);
+        back.setSizeH(12);
+        back.setPosition(ClickListener.POSITION_HORIZONTAL.LeftBottom, POSITION_VERTICAL.UpCenter);
 
     }
 
     @Override
     public void show() {
 
+    }
+
+    @Override
+    public void click(String id) {
+        if(back.id(id)){
+            MyGdxGame.dj.setSettings(music.getCheck(),sound.getCheck());
+            MyGdxGame.myGdxGame.setMenu();
+        }
     }
 }

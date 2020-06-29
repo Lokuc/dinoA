@@ -3,36 +3,33 @@ package com.severgames.dino;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
-import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.severgames.dino.Person.Person;
 import com.severgames.dino.enemies.EnemyManager;
 import com.severgames.lib.Button;
 import com.severgames.lib.ClickListener;
+
+import static com.severgames.dino.MyGdxGame.dj;
 
 public class Frame extends ScreenAdapter implements ClickListener{
 
     private SpriteBatch batch;
     private OrthographicCamera camera;
-    private Dino dino;
+    private Person person;
     private EnemyManager enemy;
     private boolean active=true;
     private Sprite count;
     private Button over;
     private Button menu;
-    private float score=0f;
-    private Dj dj = new Dj();
     private BitmapFont font;
     private BackgroundManager manager;
     private ShapeRenderer shapeRenderer;
@@ -54,50 +51,42 @@ public class Frame extends ScreenAdapter implements ClickListener{
             parameter.size=20;
             f.generateData(parameter);
             ft = f.generateFont(parameter);
+            ft.setColor(Color.CORAL);
+            f.dispose();
         }catch (Exception e){
             new Data().log("font not found");
         }
-        filter=new Sprite(new Texture("texture/UI/filter.png"));
-        ft.setColor(Color.CORAL);
+        filter=new Sprite(SpriteLoad.getUI(2));
         batch = new SpriteBatch();
         camera=new OrthographicCamera();
         camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        dino = new Dino(dj);
-        dino.spawn();
-        resume=new Button("texture/UI/Resume.png");
+        person= new Person(dj,money,this);
+        resume=new Button(SpriteLoad.getUI(6));
         resume.setSizeH(8);
         resume.setPosition(ClickListener.POSITION_HORIZONTAL.Center, ClickListener.POSITION_VERTICAL.Center);
         resume.addClickListener(this,camera);
-        quit=new Button("texture/UI/Quit.png");
+        quit=new Button(SpriteLoad.getUI(5));
         quit.setSizeH(8);
         quit.setPosition(POSITION_HORIZONTAL.Center,POSITION_VERTICAL.DownCenter);
         quit.addClickListener(this,camera);
         enemy= new EnemyManager();
-        menu=new Button("texture/UI/menu.png");
+        count = SpriteLoad.getSprite(37);
+        menu=new Button(SpriteLoad.getUI(4));
         menu.setSizeW(4);
         menu.setPosition(ClickListener.POSITION_HORIZONTAL.LeftBottom, ClickListener.POSITION_VERTICAL.DownBottom);
-        menu.addClickListener(new ClickListener() {
-            @Override
-            public void click(String id) {
-                //MyGdxGame.myGdxGame.getScreen().dispose();
-                MyGdxGame.myGdxGame.setMenu();
-            }
-        },camera);
-        over= new Button("texture/UI/gameover.png");
+        menu.addClickListener(id -> MyGdxGame.myGdxGame.setMenu(),camera);
+        over= new Button(SpriteLoad.getUI(3));
         over.setSizeW(4);
         over.setPosition(ClickListener.POSITION_HORIZONTAL.Center, ClickListener.POSITION_VERTICAL.Center);
-        over.addClickListener(new ClickListener() {
-            @Override
-            public void click(String id) {
-                if(over.id(id)){
-                    dino.spawn();
-                    enemy.spawn();
-                    enemy.respawn();
-                    active=true;
-                    manager.reSpawn();
-                    money.respawn();
-                    dj.resumeFon();
-                }
+        over.addClickListener(id -> {
+            if(over.id(id)){
+                person.spawn();
+                enemy.spawn();
+                enemy.respawn();
+                active=true;
+                manager.reSpawn();
+                money.respawn();
+                dj.playFon();
             }
         },camera);
         dj.load();
@@ -118,14 +107,14 @@ public class Frame extends ScreenAdapter implements ClickListener{
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.updateMatrices();
         batch.setProjectionMatrix(camera.combined);
-        dino.spawn();
-        count = SpriteLoad.getSprite(37);
+        person.spawn();
         enemy.spawn();
         active=true;
         manager.reSpawn();
         money.respawn();
-        dj.resumeFon();
+        dj.playFon();
     }
+
 
 
     @Override
@@ -175,18 +164,18 @@ public class Frame extends ScreenAdapter implements ClickListener{
         manager.drawPlane(batch);
         manager.drawLine(batch);
         enemy.draw(batch);
-        dino.draw(batch);
+        person.draw(batch);
         enemy.draw1(batch);
         money.draw(batch);
         manager.drawGrass(batch);
         manager.drawDownGrass(batch);
         manager.drawFilter(batch);
         count.draw(batch);
-        ft.draw(batch, dino.getLong(), count.getX() + 10, count.getY() + 25);
+        ft.draw(batch, person.getLong(), count.getX() + 10, count.getY() + 25);
         ft.draw(batch, Gdx.graphics.getFramesPerSecond() + " fps", 100, 500);
         if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-            tmp(dino.getReckt(), dino.getColor());
+            tmp(person.getRect(), person.getColor());
             tmp(enemy.getRect(), enemy.getColor());
             tmp(enemy.getGround(), enemy.getGroundColor());
             for (Rectangle re : money.getRect()) {
@@ -206,14 +195,11 @@ public class Frame extends ScreenAdapter implements ClickListener{
 
     private void update(float delta){
         manager.update(delta);
-        score+=delta*3;
-
         money.update(delta);
         enemy.update(delta);
-        dino.update(delta,enemy.getGround());
-        dino.checkMoney(money);
+        person.update(delta,enemy.getGround());
         if(!Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            dino.checkCol(enemy.getRect(), this);
+            person.checkCol(enemy.getRect());
         }
     }
 
@@ -238,14 +224,14 @@ public class Frame extends ScreenAdapter implements ClickListener{
         over.setSizeW(4);
         over.setPosition(ClickListener.POSITION_HORIZONTAL.Center, ClickListener.POSITION_VERTICAL.Center);
 
-        float tm = dino.resize(tmp);
+        float tm = person.resize(tmp);
         enemy.resize(tmp,tm);
 
     }
 
 
 
-    void dead() {
+    public void dead() {
         active=false;
         dj.pause();
         dj.playEnd();
@@ -256,5 +242,31 @@ public class Frame extends ScreenAdapter implements ClickListener{
         if(resume.id(id)){
             pause=false;
         }
+        if(quit.id(id)){
+            MyGdxGame.myGdxGame.setMenu();
+        }
+    }
+
+    @Override
+    public void dispose() {
+        count.getTexture().dispose();
+        ft.dispose();
+        font.dispose();
+        filter.getTexture().dispose();
+        batch.dispose();
+        person.dispose();
+        enemy.dispose();
+        over.dispose();
+        menu.dispose();
+        dj.dispose();
+        manager.dispose();
+        shapeRenderer.dispose();
+        money.dispose();
+        resume.dispose();
+        quit.dispose();
+    }
+
+    void setChose(int chose) {
+        person.setChose(chose);
     }
 }

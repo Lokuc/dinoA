@@ -20,9 +20,9 @@ public class loadScreen extends ScreenAdapter {
     private SpriteLoad sl;
 
     loadScreen() {
-        fon = new Sprite(new Texture("texture/UI/fon.png"));
-        load = new Sprite(new Texture("texture/UI/load.png"));
-        loading = new Sprite(new Texture("texture/UI/loading.png"));
+        fon = new Sprite(new Texture("texture/LD/fon.png"));
+        load = new Sprite(new Texture("texture/LD/load.png"));
+        loading = new Sprite(new Texture("texture/LD/loading.png"));
         fon.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         float h = Gdx.graphics.getHeight()/3;
         float w = h/loading.getHeight()*loading.getWidth();
@@ -34,7 +34,7 @@ public class loadScreen extends ScreenAdapter {
         load.setPosition(w,h);
         loading.setSize(0,loading.getHeight());
         sl = new SpriteLoad(this);
-        count=load.getWidth()/sl.getCount();
+        count=load.getWidth()/sl.getCounts();
     }
 
 
@@ -50,8 +50,8 @@ public class loadScreen extends ScreenAdapter {
             BackgroundManager bg = new BackgroundManager();
             bg.load();
             MyGdxGame.frame =new Frame(bg);
+            MyGdxGame.myGdxGame.init();
             new Data();
-            MyGdxGame.myGdxGame.getScreen().dispose();
             MyGdxGame.myGdxGame.setMenu();
         }
         batch.begin();

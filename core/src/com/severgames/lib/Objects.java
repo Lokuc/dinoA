@@ -16,70 +16,73 @@ abstract class Objects {
     ClickListener mainClick;
     boolean addClickListen;
     Sprite sprite;
-    int x=0,y=0,h=0,w=0;
+    float x = 0, y = 0, h = 0, w = 0;
     boolean ClickNeed;
     Vector3 vector3;
     OrthographicCamera camera;
 
 
-    public void addClickListener(ClickListener click, OrthographicCamera camera){
+    public void addClickListener(ClickListener click, OrthographicCamera camera) {
         mainClick = click;
         this.camera = camera;
         vector3 = new Vector3();
-        addClickListen=true;
+        addClickListen = true;
     }
 
-    public void removeClickListener(){
-        addClickListen=false;
-        mainClick=null;
-        camera=null;
+    public void removeClickListener() {
+        addClickListen = false;
+        mainClick = null;
+        camera = null;
     }
 
-    Objects(){
-        addClickListen=false;
-        ClickNeed=false;
-        id=iterator+"";
+    Objects() {
+        addClickListen = false;
+        ClickNeed = false;
+        id = iterator + "";
         iterator++;
     }
 
 
-
-
-    void setClickNeed(){
-        ClickNeed=true;
+    void setClickNeed() {
+        ClickNeed = true;
     }
 
 
-    void load(Sprite sprite){
+    void load(Sprite sprite) {
         this.sprite = sprite;
     }
 
-    void load(String path){
+    void load(String path) {
         this.sprite = new Sprite(new Texture(path));
     }
 
-    public boolean id(String id){
+    public boolean id(String id) {
         return id.equals(this.id);
     }
 
-    public void setPosition(int X,int Y){
+    public void setPosition(int X, int Y) {
+        x = X;
+        y = Y;
+        setPos(X, Y);
+    }
+    public void setPosition(float X,float Y){
         x=X;
         y=Y;
         setPos(X,Y);
     }
 
-    void setPos(int X,int Y){
-        sprite.setPosition(X,Y);
+    void setPos(float X, float Y) {
+        sprite.setPosition(X, Y);
     }
 
-    void setSizen(int W,int H){
-        sprite.setSize(W,H);
+    void setSizen(int W, int H) {
+        sprite.setSize(W, H);
     }
 
-    public void setSize(int W,int H){
-        h=H;
+    public void setSize(int W, int H) {
+        h = H;
         w = W;
-        setSizen(W,H);
+        setSizen(W, H);
     }
 
     public void setPosition(ClickListener.POSITION_HORIZONTAL position_horizontal, ClickListener.POSITION_VERTICAL position_vertical) {
@@ -122,7 +125,7 @@ abstract class Objects {
                 break;
 
         }
-        setPos((int)sprite.getX(),(int)sprite.getY());
+        setPos((int) sprite.getX(), (int) sprite.getY());
 
     }
 
@@ -130,43 +133,42 @@ abstract class Objects {
         return id;
     }
 
-    protected void onClick(Vector3 vector3){
-        if(addClickListen||ClickNeed) {
+    protected void onClick(Vector3 vector3) {
+        if (addClickListen || ClickNeed) {
             if (sprite.getBoundingRectangle().contains(new Vector2(vector3.x, vector3.y))) {
                 click();
             }
         }
     }
 
-    protected void click(){
+    protected void click() {
         mainClick.click(id);
     }
 
-    public void setSizeH(int del){
-        float h = Gdx.graphics.getHeight()/del;
-        float w = (h/sprite.getHeight()*sprite.getWidth());
-        sprite.setSize(w,h);
+    public void setSizeH(float del) {
+        float h = Gdx.graphics.getHeight() / del;
+        float w = (h / sprite.getHeight() * sprite.getWidth());
+        sprite.setSize(w, h);
     }
 
-    public void setSizeW(int del){
-        float w = Gdx.graphics.getWidth()/del;
-        float h = (w/sprite.getWidth()*sprite.getHeight());
-        sprite.setSize(w,h);
+    public void setSizeW(int del) {
+        float w = Gdx.graphics.getWidth() / del;
+        float h = (w / sprite.getWidth() * sprite.getHeight());
+        sprite.setSize(w, h);
     }
 
-    protected void checkClick(){
-        if(addClickListen&&Gdx.input.justTouched()){
-            vector3.set(Gdx.input.getX(),Gdx.input.getY(),0);
+    protected void checkClick() {
+        if (addClickListen && Gdx.input.justTouched()) {
+            vector3.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(vector3);
             onClick(vector3);
         }
     }
 
-    public void draw(SpriteBatch batch){
+    public void draw(SpriteBatch batch) {
         checkClick();
         sprite.draw(batch);
     }
-
 
 
     public void setId(String id) {
@@ -174,4 +176,7 @@ abstract class Objects {
     }
 
 
+    public void dispose(){
+        sprite.getTexture().dispose();
+    }
 }

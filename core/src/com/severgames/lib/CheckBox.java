@@ -2,11 +2,11 @@ package com.severgames.lib;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.severgames.dino.SpriteLoad;
 
 public class CheckBox {
 
@@ -19,8 +19,8 @@ public class CheckBox {
     public CheckBox(OrthographicCamera c){
         camera=c;
         vector3=new Vector3();
-        sprite2 = new Sprite(new Texture("texture/UI/checkT.png"));
-        sprite = new Sprite(new Texture("texture/UI/checkF.png"));
+        sprite2 = new Sprite(SpriteLoad.getUI(1));
+        sprite = new Sprite(SpriteLoad.getUI(0));
         float h= Gdx.graphics.getHeight()/20;
         float w = (h / sprite.getHeight()) * sprite.getWidth();
         sprite.setSize(w,h);
@@ -52,7 +52,7 @@ public class CheckBox {
     }
 
 
-
-
-
+    public boolean getCheck() {
+        return check;
+    }
 }

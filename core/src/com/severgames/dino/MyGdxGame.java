@@ -3,7 +3,6 @@ package com.severgames.dino;
 
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 
 public class MyGdxGame extends Game {
 
@@ -11,21 +10,31 @@ public class MyGdxGame extends Game {
 	static Frame frame;
 	private static Menu menu;
 	private static Settings settings;
+	public static Dj dj;
+	private static Shop shop;
 
 
 
 	@Override
 	public void dispose() {
-
+		menu.dispose();
+		frame.dispose();
+		settings.dispose();
 	}
 
 	@Override
 	public void create() {
+		dj= new Dj();
+		dj.load();
 		//Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode()); TODO
 		myGdxGame=this;
+		setScreen(new loadScreen());
+	}
+
+	void init(){
 		menu = new Menu();
 		settings=new Settings();
-		setScreen(new loadScreen());
+		shop = new Shop();
 	}
 
 
@@ -40,4 +49,12 @@ public class MyGdxGame extends Game {
 	public void setMenu(){
 		setScreen(menu);
 	}
+	public void setMenu(int chose){
+		setScreen(menu);
+		frame.setChose(chose);
+	}
+
+    public void setShop() {
+		setScreen(shop);
+    }
 }

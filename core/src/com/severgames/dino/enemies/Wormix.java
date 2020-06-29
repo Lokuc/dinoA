@@ -73,4 +73,8 @@ class Wormix {
             temp.height=temp.height/9;
             return temp;
         }
+
+     void dispose() {
+            sprite.getTexture().dispose();
+    }
 }

@@ -1,4 +1,4 @@
-package com.severgames.dino;
+package com.severgames.dino.Person;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -6,10 +6,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.severgames.dino.Data;
+import com.severgames.dino.Frame;
+import com.severgames.dino.MoneyManager;
+import com.severgames.dino.SpriteLoad;
+import static com.severgames.dino.MyGdxGame.dj;
 
 class Dino {
 
-    private Dj dj;
     private Sprite sprite;
     private boolean inFly=false;
     private int Y=0;
@@ -28,13 +32,13 @@ class Dino {
     private int money;
     private float lon;
     private String tmp="";
+    private int chose=0;
 
 
-    Dino(Dj dj){
-        this.dj=dj;
-        money=new Data().getMoney();
+    public Dino(){
+        money=new Data().getMoney(); //To all
         gAnim= new Sprite[2];
-        gAnim[0]=SpriteLoad.getSprite(17);
+        gAnim[0]= SpriteLoad.getSprite(17);
         gAnim[1]=SpriteLoad.getSprite(18);
         anim= new Sprite[7];
         sprite = SpriteLoad.getSprite(10);
@@ -46,14 +50,15 @@ class Dino {
         fly= new Sprite[2];
         fly[0]=SpriteLoad.getSprite(19);
         fly[1]=SpriteLoad.getSprite(20);
-        x=Gdx.graphics.getWidth()/11f;
+        x=Gdx.graphics.getWidth()/11f; //To all
     }
 
-    void spawn(){
+    public void spawn(){
         x=Gdx.graphics.getWidth()/11f;
         for (Sprite value : anim) {
             value.setPosition(x, y);
         }
+        lon=0f; //To all
         sprite.setPosition(x,y);
         gAnim[0].setPosition(x,y);
         gAnim[1].setPosition(x,y);
@@ -87,7 +92,7 @@ class Dino {
     }
 
     void update(float delta, Rectangle rect){
-        lon+=delta*4;
+        lon+=delta*4; //To all
         timeAnim+=delta;
         if(!inFly&&!onWorm) {
             if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
@@ -202,7 +207,7 @@ class Dino {
         return gAnim[0].getY();
     }
 
-    void checkMoney(MoneyManager money) {
+    public void checkMoney(MoneyManager money) {
         for(int i=0;i<money.getRect().length;i++){
             if(money.getRect()[i]==null){
                 continue;
@@ -224,4 +229,20 @@ class Dino {
         }
         return tmp;
     }
+
+    void dispose() {
+        sprite.getTexture().dispose();
+        for(Sprite s:anim){
+            s.getTexture().dispose();
+        }
+        for(Sprite s:gAnim){
+            s.getTexture().dispose();
+        }
+        for(Sprite s:fly){
+            s.getTexture().dispose();
+        }
+        new Data().saveMoney(money);
+    }
+
+
 }

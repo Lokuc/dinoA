@@ -2,7 +2,7 @@
 res2.png
 size: 2048,1024
 format: RGBA8888
-filter: Nearest,Nearest
+filter: Linear,Linear
 repeat: none
 0
   rotate: false
@@ -81,9 +81,30 @@ anim0
   orig: 173, 216
   offset: 0, 0
   index: -1
+anim00
+  rotate: false
+  xy: 1733, 582
+  size: 173, 216
+  orig: 173, 216
+  offset: 0, 0
+  index: -1
+anim01
+  rotate: false
+  xy: 354, 206
+  size: 173, 216
+  orig: 173, 216
+  offset: 0, 0
+  index: -1
 anim1
   rotate: false
   xy: 354, 206
+  size: 173, 216
+  orig: 173, 216
+  offset: 0, 0
+  index: -1
+anim02
+  rotate: false
+  xy: 1156, 123
   size: 173, 216
   orig: 173, 216
   offset: 0, 0
@@ -95,6 +116,13 @@ anim2
   orig: 173, 216
   offset: 0, 0
   index: -1
+anim03
+  rotate: false
+  xy: 532, 374
+  size: 173, 216
+  orig: 173, 216
+  offset: 0, 0
+  index: -1
 anim3
   rotate: false
   xy: 532, 374
@@ -102,23 +130,44 @@ anim3
   orig: 173, 216
   offset: 0, 0
   index: -1
-anim4
+anim04
   rotate: false
   xy: 529, 156
   size: 173, 216
   orig: 173, 216
   offset: 0, 0
   index: -1
+anim05
+  rotate: false
+  xy: 1558, 364
+  size: 173, 216
+  orig: 173, 216
+  offset: 0, 0
+  index: -1
 anim5
   rotate: false
-  xy: 1383, 364
+  xy: 1558, 364
+  size: 173, 216
+  orig: 173, 216
+  offset: 0, 0
+  index: -1
+anim06
+  rotate: false
+  xy: 1733, 364
   size: 173, 216
   orig: 173, 216
   offset: 0, 0
   index: -1
 anim6
   rotate: false
-  xy: 1558, 364
+  xy: 1733, 364
+  size: 173, 216
+  orig: 173, 216
+  offset: 0, 0
+  index: -1
+anim4
+  rotate: false
+  xy: 1383, 364
   size: 173, 216
   orig: 173, 216
   offset: 0, 0
@@ -132,7 +181,14 @@ count
   index: -1
 down
   rotate: false
-  xy: 1733, 364
+  xy: 1331, 123
+  size: 173, 216
+  orig: 173, 216
+  offset: 0, 0
+  index: -1
+down0
+  rotate: false
+  xy: 1331, 123
   size: 173, 216
   orig: 173, 216
   offset: 0, 0
@@ -158,6 +214,20 @@ gopnik0
   orig: 176, 166
   offset: 0, 0
   index: -1
+gopnik00
+  rotate: false
+  xy: 2, 72
+  size: 176, 166
+  orig: 176, 166
+  offset: 0, 0
+  index: -1
+gopnik01
+  rotate: false
+  xy: 354, 424
+  size: 176, 166
+  orig: 176, 166
+  offset: 0, 0
+  index: -1
 gopnik1
   rotate: false
   xy: 354, 424
@@ -174,56 +244,63 @@ grass
   index: -1
 hide0
   rotate: false
-  xy: 1924, 868
+  xy: 1681, 294
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 hide1
   rotate: false
-  xy: 102, 2
+  xy: 1924, 868
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 hide2
   rotate: false
-  xy: 280, 170
+  xy: 102, 2
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 hide3
   rotate: false
-  xy: 180, 100
+  xy: 280, 170
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 hide4
   rotate: false
-  xy: 707, 452
+  xy: 180, 100
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 hide5
   rotate: false
-  xy: 250, 100
+  xy: 707, 452
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 hide6
   rotate: false
-  xy: 707, 382
+  xy: 1681, 224
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 up
   rotate: false
-  xy: 1331, 123
+  xy: 1506, 146
+  size: 173, 216
+  orig: 173, 216
+  offset: 0, 0
+  index: -1
+up0
+  rotate: false
+  xy: 1506, 146
   size: 173, 216
   orig: 173, 216
   offset: 0, 0

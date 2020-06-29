@@ -27,7 +27,7 @@ public class EnemyManager implements Mother {
         wall=new Wall(this);
         wormix = new Wormix(this);
         wormix2=new Wormix2(this);
-        timeA=1f;
+        timeA=0.6f;
     }
 
     public static float getSpeed(){
@@ -130,5 +130,12 @@ public class EnemyManager implements Mother {
 
     public void respawn() {
         speedAdd=0f;
+    }
+
+    public void dispose() {
+        wormix2.dispose();
+        wormix.dispose();
+        wall.dispose();
+
     }
 }

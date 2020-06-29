@@ -62,8 +62,24 @@ public class SpriteLoad {
 
 
     };
+    private static String[] pathUI=new String[]{
+            "checkF",
+            "checkT",
+            "Filter",
+            "gameover",
+            "menu",
+            "Quit",
+            "Resume",
+            "settings",
+            "start",
+            "back",
+            "shop",
+            "skin1",
+            "skin2"
+    };
     private loadScreen ld;
     private static TextureAtlas atlas;
+    private static TextureAtlas atlasUI;
     private int iter=0;
 
     public SpriteLoad(loadScreen loadScreen){
@@ -72,8 +88,21 @@ public class SpriteLoad {
             settings.fast = true;
             settings.maxHeight = 16384;
             settings.maxWidth = 16384;
+            settings.filterMin= Texture.TextureFilter.Linear;
+            settings.filterMag= Texture.TextureFilter.Linear;
             TexturePacker.process(settings, "./texture/input",  "./texture/output", "res2");
             atlas = new TextureAtlas("./texture/output/res2.atlas");
+        }catch (Exception ignore){
+        }
+        try {
+            TexturePacker.Settings settings = new TexturePacker.Settings();
+            settings.fast = true;
+            settings.maxHeight = 16384;
+            settings.maxWidth = 16384;
+            settings.filterMin= Texture.TextureFilter.Linear;
+            settings.filterMag= Texture.TextureFilter.Linear;
+            TexturePacker.process(settings, "./texture/UI",  "./texture/output", "UI");
+            atlasUI = new TextureAtlas("./texture/output/UI.atlas");
         }catch (Exception ignore){
         }
         ld = loadScreen;
@@ -85,13 +114,16 @@ public class SpriteLoad {
 
         return atlas.createSprite(paths[i]);
     }
+    public static Sprite getSprite(String name){
+        return atlas.createSprite(name);
+    }
+    public static Sprite getUI(int i){
+        return atlasUI.createSprite(pathUI[i]);
+    }
     public static Sprite getFon(int i){
         return sprites[i];
     }
 
-    public SpriteLoad(){
-
-    }
 
 
     public boolean getLoad(){

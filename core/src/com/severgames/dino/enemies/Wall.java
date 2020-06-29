@@ -68,4 +68,10 @@ class Wall {
 
         return temp;
     }
+
+    void dispose() {
+        sprite1.getTexture().dispose();
+        sprite.getTexture().dispose();
+        sprite2.getTexture().dispose();
+    }
 }

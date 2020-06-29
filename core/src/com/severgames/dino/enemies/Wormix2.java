@@ -58,4 +58,7 @@ class Wormix2 {
         return temp;
     }
 
+    void dispose() {
+        sprite.getTexture().dispose();
+    }
 }

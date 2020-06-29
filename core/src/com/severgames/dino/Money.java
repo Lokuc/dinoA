@@ -127,4 +127,13 @@ class Money {
             s.setY(he);
         }
     }
+
+    public void dispose() {
+        for(Sprite s:sprite){
+            s.getTexture().dispose();
+        }
+        for(Sprite s:hide){
+            s.getTexture().dispose();
+        }
+    }
 }

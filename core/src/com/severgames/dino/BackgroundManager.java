@@ -280,6 +280,8 @@ public class BackgroundManager {
     }
 
     void reSpawn(){
+        isBackSpawn=false;
+        isGrassSpawn=false;
         timeGrass=0f;
         timeGround=0f;
         Xpos[0]=0f;
@@ -290,4 +292,12 @@ public class BackgroundManager {
     }
 
 
+    public void dispose() {
+        for(Sprite s:sprites){
+            if(s==null){
+                continue;
+            }
+            s.getTexture().dispose();
+        }
+    }
 }

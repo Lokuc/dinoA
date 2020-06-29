@@ -12,6 +12,7 @@ public class Button extends Objects{
         load(sprite);
     }
 
+
     public Rectangle getRect(){
         return sprite.getBoundingRectangle();
     }

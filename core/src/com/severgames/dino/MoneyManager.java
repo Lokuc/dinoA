@@ -56,7 +56,7 @@ public class MoneyManager {
         }
     }
 
-    Rectangle[] getRect(){
+    public Rectangle[] getRect(){
         rect = new Rectangle[tmp];
         for (int i = 0; i < tmp; i++) {
             rect[i]=money[i].getRect();
@@ -64,13 +64,19 @@ public class MoneyManager {
         return rect;
     }
 
-    void delete(int i){
+    public void delete(int i){
         money[i].delete();
     }
 
     void resize(float he){
         for(Money m:money){
             m.resize(he);
+        }
+    }
+
+    public void dispose() {
+        for(Money m:money){
+            m.dispose();
         }
     }
 }
