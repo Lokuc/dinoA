@@ -22,15 +22,19 @@ public class Shop extends ScreenAdapter implements ClickListener {
         camera=new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         batch.setProjectionMatrix(camera.combined);
-        skin=new Button[2];
+        skin=new Button[3];
         skin[0]=new Button(SpriteLoad.getUI(11));
         skin[1]=new Button(SpriteLoad.getUI(12));
+        skin[2]=new Button(SpriteLoad.getUI(13));
         skin[0].setSizeH(3);
         skin[1].setSizeH(3);
-        skin[0].setPosition(ClickListener.POSITION_HORIZONTAL.LeftCenter, ClickListener.POSITION_VERTICAL.Center);
-        skin[1].setPosition(ClickListener.POSITION_HORIZONTAL.RightCenter, ClickListener.POSITION_VERTICAL.Center);
+        skin[2].setSizeH(3);
+        skin[0].setPosition(POSITION_HORIZONTAL.LeftCenter, POSITION_VERTICAL.Center);
+        skin[1].setPosition(POSITION_HORIZONTAL.RightCenter, POSITION_VERTICAL.Center);
+        skin[2].setPosition(POSITION_HORIZONTAL.Center,POSITION_VERTICAL.Center);
         skin[0].addClickListener(this,camera);
         skin[1].addClickListener(this,camera);
+        skin[2].addClickListener(this,camera);
         chose=0;
         back = new Button(new Sprite(SpriteLoad.getUI(9)));
         back.setSizeH(12);
@@ -46,6 +50,7 @@ public class Shop extends ScreenAdapter implements ClickListener {
 
         skin[0].draw(batch);
         skin[1].draw(batch);
+        skin[2].draw(batch);
         back.draw(batch);
 
         batch.end();
@@ -57,8 +62,10 @@ public class Shop extends ScreenAdapter implements ClickListener {
         batch.setProjectionMatrix(camera.combined);
         skin[0].setSizeH(3);
         skin[1].setSizeH(3);
+        skin[2].setSizeH(3);
         skin[0].setPosition(ClickListener.POSITION_HORIZONTAL.LeftCenter, ClickListener.POSITION_VERTICAL.Center);
         skin[1].setPosition(ClickListener.POSITION_HORIZONTAL.RightCenter, ClickListener.POSITION_VERTICAL.Center);
+        skin[2].setPosition(POSITION_HORIZONTAL.Center,POSITION_VERTICAL.Center);
     }
 
     @Override
@@ -78,6 +85,8 @@ public class Shop extends ScreenAdapter implements ClickListener {
             skin[0].setPosition(ClickListener.POSITION_HORIZONTAL.LeftCenter, ClickListener.POSITION_VERTICAL.Center);
             skin[1].setSizeH(3);
             skin[1].setPosition(POSITION_HORIZONTAL.RightCenter, ClickListener.POSITION_VERTICAL.Center);
+            skin[2].setSizeH(3);
+            skin[2].setPosition(POSITION_HORIZONTAL.Center,POSITION_VERTICAL.Center);
             chose=0;
         }
         if(skin[1].id(id)){
@@ -85,7 +94,18 @@ public class Shop extends ScreenAdapter implements ClickListener {
             skin[1].setPosition(POSITION_HORIZONTAL.RightCenter, ClickListener.POSITION_VERTICAL.Center);
             skin[0].setSizeH(3);
             skin[0].setPosition(ClickListener.POSITION_HORIZONTAL.LeftCenter, ClickListener.POSITION_VERTICAL.Center);
+            skin[2].setSizeH(3);
+            skin[2].setPosition(POSITION_HORIZONTAL.Center,POSITION_VERTICAL.Center);
             chose=1;
+        }
+        if(skin[2].id(id)){
+            skin[2].setSizeH(2);
+            skin[2].setPosition(POSITION_HORIZONTAL.Center,POSITION_VERTICAL.Center);
+            skin[1].setSizeH(3);
+            skin[1].setPosition(POSITION_HORIZONTAL.RightCenter, ClickListener.POSITION_VERTICAL.Center);
+            skin[0].setSizeH(3);
+            skin[0].setPosition(ClickListener.POSITION_HORIZONTAL.LeftCenter, ClickListener.POSITION_VERTICAL.Center);
+            chose=2;
         }
         if(back.id(id)){
             MyGdxGame.myGdxGame.setMenu(chose);

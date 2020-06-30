@@ -34,14 +34,14 @@ back
   index: -1
 checkF
   rotate: false
-  xy: 1337, 430
+  xy: 1512, 430
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 checkT
   rotate: false
-  xy: 1337, 368
+  xy: 1512, 368
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
@@ -69,14 +69,14 @@ start
   index: -1
 settings
   rotate: false
-  xy: 1399, 430
+  xy: 1574, 430
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 shop
   rotate: false
-  xy: 1337, 306
+  xy: 1512, 306
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
@@ -91,6 +91,13 @@ skin1
 skin2
   rotate: false
   xy: 1162, 274
+  size: 173, 216
+  orig: 173, 216
+  offset: 0, 0
+  index: -1
+skin3
+  rotate: false
+  xy: 1337, 274
   size: 173, 216
   orig: 173, 216
   offset: 0, 0

@@ -18,6 +18,7 @@ public class Person {
     private Dj dj;
     private StonePerson stone;
     private RoboPerson robo;
+    private SharkPerson shark;
 
 
 
@@ -28,6 +29,7 @@ public class Person {
         this.money=money;
         stone=new StonePerson(this,money);
         robo=new RoboPerson(this,money);
+        shark=new SharkPerson(this,money);
     }
     public void spawn(){
         lon=0f;
@@ -35,6 +37,8 @@ public class Person {
             stone.spawn();
         }else if(chose==1){
             robo.spawn();
+        }else if(chose==2){
+            shark.spawn();
         }
     }
     public void draw(SpriteBatch batch){
@@ -42,6 +46,8 @@ public class Person {
             stone.draw(batch);
         }else if(chose==1){
             robo.draw(batch);
+        }else if(chose==2){
+            shark.draw(batch);
         }
     }
 
@@ -53,6 +59,9 @@ public class Person {
         }else if(chose==1){
             robo.update(delta,rect);
             robo.checkMoney();
+        }else if(chose==2){
+            shark.update(delta,rect);
+            shark.checkMoney();
         }
     }
     public Color getColor(){
@@ -61,7 +70,7 @@ public class Person {
         }else if(chose==1){
             return robo.getColor();
         }
-        return Color.CORAL;
+        return Color.GREEN;
     }
 
     public float resize(float y){
@@ -69,6 +78,8 @@ public class Person {
             return stone.resize(y);
         }else if(chose==1){
             return robo.resize(y);
+        }else if(chose==2){
+            return shark.resize(y);
         }
         return 0f;
     }
@@ -88,6 +99,7 @@ public class Person {
     public void dispose(){
         stone.dispose();
         robo.dispose();
+        shark.dispose();
     }
 
     void addCoin(int i) {
@@ -106,6 +118,8 @@ public class Person {
             return stone.getReckt();
         }else if(chose==1){
             return robo.getReckt();
+        }else if(chose==2){
+            return shark.getReckt();
         }
         return null;
     }
@@ -115,6 +129,8 @@ public class Person {
             stone.checkCol(rect);
         }else if(chose==1){
             robo.checkCol(rect);
+        }else if(chose==2){
+            shark.checkCol(rect);
         }
 
     }

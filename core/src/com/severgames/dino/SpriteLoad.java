@@ -75,7 +75,8 @@ public class SpriteLoad {
             "back",
             "shop",
             "skin1",
-            "skin2"
+            "skin2",
+            "skin3"
     };
     private loadScreen ld;
     private static TextureAtlas atlas;
