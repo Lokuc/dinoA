@@ -23,6 +23,14 @@ public class Data {
         preferences.putInteger("money",i);
         preferences.flush();
     }
+    public void saveSettings(boolean sound, boolean music){
+        preferences.putBoolean("sound",sound);
+        preferences.putBoolean("music",music);
+        preferences.flush();
+    }
+    public boolean[] getSettings(){
+        return new boolean[]{preferences.getBoolean("sound"),preferences.getBoolean("music")};
+    }
      public void log(String log){
         new FileHandle("log.txt").writeString(log,true);
      }

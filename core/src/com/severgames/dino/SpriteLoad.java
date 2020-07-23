@@ -1,5 +1,6 @@
 package com.severgames.dino;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -76,11 +77,13 @@ public class SpriteLoad {
             "shop",
             "skin1",
             "skin2",
-            "skin3"
+            "skin3",
+            "atch"
     };
     private loadScreen ld;
     private static TextureAtlas atlas;
     private static TextureAtlas atlasUI;
+    private static TextureAtlas atlasperson;
     private int iter=0;
 
     public SpriteLoad(loadScreen loadScreen){
@@ -102,6 +105,17 @@ public class SpriteLoad {
             settings.maxWidth = 16384;
             settings.filterMin= Texture.TextureFilter.Linear;
             settings.filterMag= Texture.TextureFilter.Linear;
+            TexturePacker.process(settings, "./texture/person",  "./texture/output", "person");
+            atlasperson = new TextureAtlas("./texture/output/person.atlas");
+        }catch (Exception ignore){
+        }
+        try {
+            TexturePacker.Settings settings = new TexturePacker.Settings();
+            settings.fast = true;
+            settings.maxHeight = 16384;
+            settings.maxWidth = 16384;
+            settings.filterMin= Texture.TextureFilter.Linear;
+            settings.filterMag= Texture.TextureFilter.Linear;
             TexturePacker.process(settings, "./texture/UI",  "./texture/output", "UI");
             atlasUI = new TextureAtlas("./texture/output/UI.atlas");
         }catch (Exception ignore){
@@ -111,8 +125,13 @@ public class SpriteLoad {
 
     }
 
+    public static Sprite getPerson(String path){
+        return atlasperson.createSprite(path);
+    }
+    public static Sprite getAnim(String path,int i){
+        return atlasperson.createSprite(path,i);
+    }
     public static Sprite getSprite(int i){
-
         return atlas.createSprite(paths[i]);
     }
     public static Sprite getSprite(String name){
@@ -120,6 +139,9 @@ public class SpriteLoad {
     }
     public static Sprite getUI(int i){
         return atlasUI.createSprite(pathUI[i]);
+    }
+    public static Sprite getUI(String path){
+        return atlasUI.createSprite(path);
     }
     public static Sprite getFon(int i){
         return sprites[i];

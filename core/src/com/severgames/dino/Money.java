@@ -20,13 +20,11 @@ class Money {
         hide=new Sprite[7];
         int j=21;
         for(int i=0;i<sprite.length;i++){
-            sprite[i]=new Sprite();
-            sprite[i].set(SpriteLoad.getSprite(j));
+            sprite[i]=SpriteLoad.getSprite(j);
             j++;
         }
         for(int i=0;i<hide.length;i++){
-            hide[i]=new Sprite();
-            hide[i].set(SpriteLoad.getSprite(j));
+            hide[i]=SpriteLoad.getSprite(j);
             j++;
         }
         active=false;

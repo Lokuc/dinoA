@@ -3,11 +3,11 @@ package com.severgames.dino.Person;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.severgames.dino.MoneyManager;
 import com.severgames.dino.SpriteLoad;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 class RoboPerson {
 
@@ -35,17 +35,13 @@ class RoboPerson {
         gopnik=new Sprite[2];
         run=new Sprite[7];
         fly=new Sprite[2];
-        run[0]=SpriteLoad.getSprite("anim00");
-        run[1]=SpriteLoad.getSprite("anim01");
-        run[2]=SpriteLoad.getSprite("anim02");
-        run[3]=SpriteLoad.getSprite("anim03");
-        run[4]=SpriteLoad.getSprite("anim04");
-        run[5]=SpriteLoad.getSprite("anim05");
-        run[6]=SpriteLoad.getSprite("anim06");
-        gopnik[0]=SpriteLoad.getSprite("gopnik00");
-        gopnik[1]=SpriteLoad.getSprite("gopnik01");
-        fly[0]=SpriteLoad.getSprite("down0");
-        fly[1]=SpriteLoad.getSprite("up0");
+        for(int i=0;i<run.length;i++){
+            run[i]=SpriteLoad.getAnim("kaktus",i);
+        }
+        gopnik[0]=SpriteLoad.getPerson("kaktussit0");
+        gopnik[1]=SpriteLoad.getPerson("kaktussit1");
+        fly[0]=SpriteLoad.getPerson("kaktusdown");
+        fly[1]=SpriteLoad.getPerson("kaktusup");
 
     }
 

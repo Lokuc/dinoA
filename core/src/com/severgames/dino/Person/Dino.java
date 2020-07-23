@@ -3,7 +3,6 @@ package com.severgames.dino.Person;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.severgames.dino.Data;
@@ -11,6 +10,7 @@ import com.severgames.dino.Frame;
 import com.severgames.dino.MoneyManager;
 import com.severgames.dino.SpriteLoad;
 import static com.severgames.dino.MyGdxGame.dj;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 class Dino {
 

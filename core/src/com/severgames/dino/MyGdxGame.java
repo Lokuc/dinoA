@@ -26,6 +26,7 @@ public class MyGdxGame extends Game {
 	public void create() {
 		dj= new Dj();
 		dj.load();
+		dj.setSettings(new Data().getSettings()[1],new Data().getSettings()[0]);
 		//Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode()); TODO
 		myGdxGame=this;
 		setScreen(new loadScreen());
@@ -50,6 +51,7 @@ public class MyGdxGame extends Game {
 		setScreen(menu);
 	}
 	public void setMenu(int chose){
+		dj.playFonM();
 		setScreen(menu);
 		frame.setChose(chose);
 	}

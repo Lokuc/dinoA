@@ -15,7 +15,6 @@ public class loadScreen extends ScreenAdapter {
     private Sprite fon;
     private Sprite loading;
     private Sprite load;
-    private int temp;
     private float count;
     private SpriteLoad sl;
 

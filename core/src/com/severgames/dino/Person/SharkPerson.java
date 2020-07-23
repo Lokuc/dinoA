@@ -2,11 +2,11 @@ package com.severgames.dino.Person;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.severgames.dino.MoneyManager;
 import com.severgames.dino.SpriteLoad;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 class SharkPerson {
 
@@ -28,15 +28,11 @@ class SharkPerson {
         this.money = money;
         run = new Sprite[7];
         fly = new Sprite[2];
-        run[0] = SpriteLoad.getSprite("anim10");
-        run[1] = SpriteLoad.getSprite("anim11");
-        run[2] = SpriteLoad.getSprite("anim12");
-        run[3] = SpriteLoad.getSprite("anim13");
-        run[4] = SpriteLoad.getSprite("anim14");
-        run[5] = SpriteLoad.getSprite("anim15");
-        run[6] = SpriteLoad.getSprite("anim16");
-        fly[0] = SpriteLoad.getSprite("down1");
-        fly[1] = SpriteLoad.getSprite("up1");
+        for(int i=0;i<run.length;i++){
+            run[i] = SpriteLoad.getAnim("shark",i);
+        }
+        fly[0] = SpriteLoad.getPerson("sharkdown");
+        fly[1] = SpriteLoad.getPerson("sharkup");
     }
 
     void spawn() {

@@ -41,6 +41,9 @@ public class Dj {
             music[0].play();
         }
     }
+    void stopFon(){
+        music[0].stop();
+    }
 
     public void playCoin(){
         if(soundB) {
@@ -54,10 +57,6 @@ public class Dj {
     }
 
 
-
-    void pause() {
-        music[0].stop();
-    }
 
     void dispose() {
         //sounds[0].dispose();

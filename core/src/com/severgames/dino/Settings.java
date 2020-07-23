@@ -26,6 +26,8 @@ class Settings extends ScreenAdapter implements ClickListener {
         music=new CheckBox(camera);
         sound=new CheckBox(camera);
         sound.addY();
+        sound.setCheck(new Data().getSettings()[0]);
+        music.setCheck(new Data().getSettings()[1]);
         back  = new Button(new Sprite(SpriteLoad.getUI(9)));
         back.setSizeH(12);
         back.setPosition(ClickListener.POSITION_HORIZONTAL.LeftBottom, POSITION_VERTICAL.UpCenter);
@@ -64,6 +66,7 @@ class Settings extends ScreenAdapter implements ClickListener {
     @Override
     public void click(String id) {
         if(back.id(id)){
+            new Data().saveSettings(sound.getCheck(),music.getCheck());
             MyGdxGame.dj.setSettings(music.getCheck(),sound.getCheck());
             MyGdxGame.myGdxGame.setMenu();
         }

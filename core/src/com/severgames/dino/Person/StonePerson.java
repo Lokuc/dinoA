@@ -3,11 +3,11 @@ package com.severgames.dino.Person;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.severgames.dino.MoneyManager;
 import com.severgames.dino.SpriteLoad;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 class StonePerson {
 
@@ -35,15 +35,13 @@ class StonePerson {
         gopnik=new Sprite[2];
         run=new Sprite[7];
         fly=new Sprite[2];
-        int j=10;
         for(int i=0;i<run.length;i++){
-            run[i]= SpriteLoad.getSprite(j);
-            j++;
+            run[i]= SpriteLoad.getAnim("bot",i);
         }
-        gopnik[0]=SpriteLoad.getSprite(17);
-        gopnik[1]=SpriteLoad.getSprite(18);
-        fly[0]=SpriteLoad.getSprite(19);
-        fly[1]=SpriteLoad.getSprite(20);
+        gopnik[0]=SpriteLoad.getPerson("botsit0");
+        gopnik[1]=SpriteLoad.getPerson("botsit1");
+        fly[0]=SpriteLoad.getPerson("botdown");
+        fly[1]=SpriteLoad.getPerson("botup");
 
     }
 

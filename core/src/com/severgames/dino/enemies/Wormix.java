@@ -17,7 +17,7 @@ class Wormix {
         Wormix(Mother mother){
             this.mother=mother;
             sprite= SpriteLoad.getSprite(0);
-            wet=SpriteLoad.getSprite(35);
+            wet= SpriteLoad.getSprite(35);
         }
 
         void spawn(){

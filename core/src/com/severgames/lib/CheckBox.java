@@ -55,4 +55,8 @@ public class CheckBox {
     public boolean getCheck() {
         return check;
     }
+
+    public void setCheck(boolean check) {
+        this.check=check;
+    }
 }

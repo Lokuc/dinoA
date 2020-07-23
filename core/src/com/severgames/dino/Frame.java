@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.severgames.dino.Person.Person;
 import com.severgames.dino.enemies.EnemyManager;
 import com.severgames.lib.Button;
@@ -38,10 +38,16 @@ public class Frame extends ScreenAdapter implements ClickListener{
     private boolean pause;
     private Button resume;
     private Button quit;
+    private Button retry;
+    private Button settings;
     private Sprite filter;
 
 
     Frame(BackgroundManager manager){
+
+
+
+
         this.manager = manager;
         shapeRenderer=new ShapeRenderer();
         money=new MoneyManager();
@@ -56,18 +62,29 @@ public class Frame extends ScreenAdapter implements ClickListener{
         }catch (Exception e){
             new Data().log("font not found");
         }
-        filter=new Sprite(SpriteLoad.getUI(2));
+        filter=SpriteLoad.getUI(2);
         batch = new SpriteBatch();
         camera=new OrthographicCamera();
         camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         person= new Person(dj,money,this);
         resume=new Button(SpriteLoad.getUI(6));
         resume.setSizeH(8);
-        resume.setPosition(ClickListener.POSITION_HORIZONTAL.Center, ClickListener.POSITION_VERTICAL.Center);
+        resume.setPosition(ClickListener.POSITION_HORIZONTAL.Center, POSITION_VERTICAL.UpCenter);
         resume.addClickListener(this,camera);
+        retry = new Button(SpriteLoad.getUI("Retry"));
+        retry.setSizeH(8);
+        retry.setX(POSITION_HORIZONTAL.Center);
+        retry.setY(resume.getY()-resume.getHeight()-retry.getHeight()-Gdx.graphics.getHeight()/11f);
+        retry.addClickListener(this,camera);
+        settings=new Button(SpriteLoad.getUI("Setting"));
+        settings.setSizeH(8);
+        settings.setX(POSITION_HORIZONTAL.Center);
+        settings.setY(retry.getY()-retry.getHeight()-Gdx.graphics.getHeight()/11f);
+        settings.addClickListener(this,camera);
         quit=new Button(SpriteLoad.getUI(5));
         quit.setSizeH(8);
-        quit.setPosition(POSITION_HORIZONTAL.Center,POSITION_VERTICAL.DownCenter);
+        quit.setX(POSITION_HORIZONTAL.Center);
+        quit.setY(settings.getY()-settings.getHeight()-Gdx.graphics.getHeight()/11f);
         quit.addClickListener(this,camera);
         enemy= new EnemyManager();
         count = SpriteLoad.getSprite(37);
@@ -127,6 +144,7 @@ public class Frame extends ScreenAdapter implements ClickListener{
 
         if(Gdx.input.isKeyPressed(Input.Keys.P)){
             return;
+
         }
         camera.update();
         Gdx.gl.glClearColor(0.1f,0.1f,0.1f,1);
@@ -144,6 +162,8 @@ public class Frame extends ScreenAdapter implements ClickListener{
                 draw();
                 filter.draw(batch);
                 resume.draw(batch);
+                retry.draw(batch);
+                settings.draw(batch);
                 quit.draw(batch);
                 batch.end();
 
@@ -159,7 +179,9 @@ public class Frame extends ScreenAdapter implements ClickListener{
 
     private void draw() {
         batch.begin();
+        batch.disableBlending();
         manager.drawFon(batch);
+        batch.enableBlending();
         manager.drawBack(batch);
         manager.drawPlane(batch);
         manager.drawLine(batch);
@@ -210,10 +232,17 @@ public class Frame extends ScreenAdapter implements ClickListener{
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.updateMatrices();
         camera.update();
-        quit.setSizeH(8);
-        quit.setPosition(POSITION_HORIZONTAL.Center,POSITION_VERTICAL.DownCenter);
         resume.setSizeH(8);
-        resume.setPosition(POSITION_HORIZONTAL.Center,POSITION_VERTICAL.Center);
+        resume.setPosition(POSITION_HORIZONTAL.Center,POSITION_VERTICAL.UpCenter);
+        retry.setSizeH(8);
+        retry.setX(POSITION_HORIZONTAL.Center);
+        retry.setY(resume.getY()-resume.getHeight()-Gdx.graphics.getHeight()/16f);
+        settings.setSizeH(8);
+        settings.setX(POSITION_HORIZONTAL.Center);
+        settings.setY(retry.getY()-retry.getHeight()-Gdx.graphics.getHeight()/16f);
+        quit.setSizeH(8);
+        quit.setX(POSITION_HORIZONTAL.Center);
+        quit.setY(settings.getY()-settings.getHeight()-Gdx.graphics.getHeight()/16f);
         filter.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         float tmp = manager.resize();
         money.resize(tmp);
@@ -233,7 +262,7 @@ public class Frame extends ScreenAdapter implements ClickListener{
 
     public void dead() {
         active=false;
-        dj.pause();
+        dj.stopFon();
         dj.playEnd();
     }
 
@@ -243,7 +272,24 @@ public class Frame extends ScreenAdapter implements ClickListener{
             pause=false;
         }
         if(quit.id(id)){
+            dj.stopFon();
             MyGdxGame.myGdxGame.setMenu();
+        }
+        if(retry.id(id)){
+            dj.stopFon();
+            dead();
+            person.spawn();
+            enemy.spawn();
+            enemy.respawn();
+            active=true;
+            manager.reSpawn();
+            money.respawn();
+            dj.playFon();
+            pause=false;
+        }
+        if(settings.id(id)){
+            dj.stopFon();
+            MyGdxGame.myGdxGame.setSetting();
         }
     }
 
@@ -264,6 +310,8 @@ public class Frame extends ScreenAdapter implements ClickListener{
         money.dispose();
         resume.dispose();
         quit.dispose();
+        retry.dispose();
+        settings.dispose();
     }
 
     void setChose(int chose) {
