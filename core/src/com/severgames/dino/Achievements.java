@@ -8,16 +8,19 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.severgames.dino.Person.Person;
 import com.severgames.lib.Button;
 import com.severgames.lib.ClickListener;
 
 public class Achievements extends ScreenAdapter {
 
+    private Person person;
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private Button fon;
     private BitmapFont ft;
     private boolean isMove;
+    private boolean isNotMove;
     private boolean isShow;
     private float timeShow;
     private float X;
@@ -47,13 +50,45 @@ public class Achievements extends ScreenAdapter {
     }
 
     public void updateAndCheck(){
-
+        check();
+        updateBoard();
     }
 
-    public void updateBoard(){
-        if(isShow){
-            //TODO
+    private void check(){
+        if(person.jump()){
+            isShow=true;
+            isMove=true;
         }
+    }
+
+    private void updateBoard(){
+        if(isShow){
+            if(isMove){
+                fon.setX(fon.getY()-600*Gdx.graphics.getDeltaTime());
+                if(fon.getX()<Gdx.graphics.getWidth()-fon.getWidth()){
+                    fon.setX(Gdx.graphics.getWidth()-fon.getWidth());
+                    isMove=false;
+                }
+            }else {
+                timeShow += Gdx.graphics.getDeltaTime();
+                if (timeShow >= 2f) {
+                    isNotMove = true;
+                }
+                if (isNotMove) {
+                    fon.setX(fon.getY() + 600 * Gdx.graphics.getDeltaTime());
+                    if (fon.getX() > Gdx.graphics.getWidth()) {
+                        fon.setX(Gdx.graphics.getWidth());
+                        isNotMove = false;
+                        isShow=false;
+                    }
+                }
+            }
+        }
+    }
+
+    public void draw(SpriteBatch batch){
+        fon.draw(batch);
+        ft.draw(batch,"Test",fon.getX(),fon.getY());
     }
 
     @Override
@@ -61,8 +96,9 @@ public class Achievements extends ScreenAdapter {
         batch.dispose();
     }
 
-    public Achievements(){
+    public Achievements(Person person){
         camera=new OrthographicCamera();
+        this.person = person;
         batch=new SpriteBatch();
         camera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         camera.update();
@@ -73,7 +109,7 @@ public class Achievements extends ScreenAdapter {
         try {
             FreeTypeFontGenerator f = new FreeTypeFontGenerator(new FileHandle("font.ttf"));
             FreeTypeFontGenerator.FreeTypeFontParameter parameter= new FreeTypeFontGenerator.FreeTypeFontParameter();
-            parameter.size=18;
+            parameter.size=(Gdx.graphics.getHeight()/5)/5;
             f.generateData(parameter);
             ft = f.generateFont(parameter);
             ft.setColor(Color.WHITE);
@@ -83,7 +119,8 @@ public class Achievements extends ScreenAdapter {
         }
         isMove=false;
         isShow=false;
-        timeShow=0;
+        isNotMove=false;
+        timeShow=0f;
     }
 
     public void respawn(){

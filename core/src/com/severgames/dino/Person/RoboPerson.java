@@ -120,7 +120,9 @@ class RoboPerson {
         }else if(onWorm){
             checkGround(rect);
         }
+        person.jumpi=false;
         if (!inGopnik&&!inFly&&(Gdx.input.isKeyJustPressed(Input.Keys.UP)||Gdx.input.isKeyJustPressed(Input.Keys.W))){
+            person.jumpi=true;
             inFly=true;
             speedFly=Gdx.graphics.getHeight()/35f;
         }

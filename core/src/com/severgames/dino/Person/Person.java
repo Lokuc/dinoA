@@ -19,6 +19,7 @@ public class Person {
     private StonePerson stone;
     private RoboPerson robo;
     private SharkPerson shark;
+    boolean jumpi;
 
 
 
@@ -40,6 +41,9 @@ public class Person {
         }else if(chose==2){
             shark.spawn();
         }
+    }
+    public boolean jump(){
+        return jumpi;
     }
     public void draw(SpriteBatch batch){
         if(chose==0){

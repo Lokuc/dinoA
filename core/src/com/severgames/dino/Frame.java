@@ -277,11 +277,9 @@ public class Frame extends ScreenAdapter implements ClickListener{
         }
         if(retry.id(id)){
             dj.stopFon();
-            dead();
             person.spawn();
             enemy.spawn();
             enemy.respawn();
-            active=true;
             manager.reSpawn();
             money.respawn();
             dj.playFon();

@@ -38,6 +38,7 @@ public class Dj {
     }
     void playFon(){
         if(musicB) {
+            music[0].setLooping(true);
             music[0].play();
         }
     }
