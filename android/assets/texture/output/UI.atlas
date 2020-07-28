@@ -1,0 +1,125 @@
+
+UI.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Filter
+  rotate: false
+  xy: 967, 2
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+Quit
+  rotate: false
+  xy: 645, 450
+  size: 340, 60
+  orig: 340, 60
+  offset: 0, 0
+  index: -1
+Resume
+  rotate: false
+  xy: 645, 388
+  size: 340, 60
+  orig: 340, 60
+  offset: 0, 0
+  index: -1
+Retry
+  rotate: false
+  xy: 987, 450
+  size: 340, 60
+  orig: 340, 60
+  offset: 0, 0
+  index: -1
+Setting
+  rotate: false
+  xy: 645, 326
+  size: 340, 60
+  orig: 340, 60
+  offset: 0, 0
+  index: -1
+atch
+  rotate: false
+  xy: 1329, 450
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+back
+  rotate: false
+  xy: 2, 273
+  size: 641, 237
+  orig: 641, 237
+  offset: 0, 0
+  index: -1
+checkF
+  rotate: false
+  xy: 1142, 170
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+checkT
+  rotate: false
+  xy: 1391, 450
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+gameover
+  rotate: false
+  xy: 645, 4
+  size: 320, 320
+  orig: 320, 320
+  offset: 0, 0
+  index: -1
+menu
+  rotate: false
+  xy: 2, 34
+  size: 641, 237
+  orig: 641, 237
+  offset: 0, 0
+  index: -1
+start
+  rotate: false
+  xy: 2, 34
+  size: 641, 237
+  orig: 641, 237
+  offset: 0, 0
+  index: -1
+settings
+  rotate: false
+  xy: 1337, 388
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+shop
+  rotate: false
+  xy: 1142, 108
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+skin1
+  rotate: false
+  xy: 987, 232
+  size: 173, 216
+  orig: 173, 216
+  offset: 0, 0
+  index: -1
+skin2
+  rotate: false
+  xy: 1162, 232
+  size: 173, 216
+  orig: 173, 216
+  offset: 0, 0
+  index: -1
+skin3
+  rotate: false
+  xy: 967, 14
+  size: 173, 216
+  orig: 173, 216
+  offset: 0, 0
+  index: -1

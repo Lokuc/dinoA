@@ -70,6 +70,7 @@ public class Shop extends ScreenAdapter implements ClickListener {
 
     @Override
     public void show() {
+        MyGdxGame.dj.playShop();
 
     }
 
@@ -108,6 +109,7 @@ public class Shop extends ScreenAdapter implements ClickListener {
             chose=2;
         }
         if(back.id(id)){
+            MyGdxGame.dj.stopShop();
             MyGdxGame.myGdxGame.setMenu(chose);
         }
     }

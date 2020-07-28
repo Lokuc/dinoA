@@ -39,6 +39,13 @@ KEY0
   orig: 98, 68
   offset: 0, 0
   index: -1
+coin
+  rotate: false
+  xy: 1924, 946
+  size: 98, 68
+  orig: 98, 68
+  offset: 0, 0
+  index: -1
 KEY1
   rotate: false
   xy: 1383, 738

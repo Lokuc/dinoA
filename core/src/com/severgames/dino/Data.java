@@ -6,7 +6,8 @@ import com.badlogic.gdx.files.FileHandle;
 
 public class Data {
 
-    private Preferences preferences;
+    private static Preferences preferences;
+
 
     public Data() {
         if(preferences==null){

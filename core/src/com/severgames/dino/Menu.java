@@ -84,10 +84,10 @@ public class Menu extends ScreenAdapter implements ClickListener {
     @Override
     public void click(String id) {
         if(start.id(id)){
-            MyGdxGame.myGdxGame.setFrame();
+            MyGdxGame.myGdxGame.setFrame(false);
         }
         if(settings.id(id)){
-            MyGdxGame.myGdxGame.setSetting();
+            MyGdxGame.myGdxGame.setSetting(true);
         }
         if(shop.id(id)){
             MyGdxGame.myGdxGame.setShop();

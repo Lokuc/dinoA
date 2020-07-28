@@ -38,7 +38,7 @@ class Wormix2 {
         float h = Gdx.graphics.getHeight()/5;
         float w = (h/sprite.getHeight()*sprite.getWidth());
         sprite.setSize(w,h);
-        sprite.setPosition(Gdx.graphics.getWidth()+sprite.getWidth()/2,H);
+        sprite.setPosition(X,H);
     }
 
     Rectangle getRect(){

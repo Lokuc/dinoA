@@ -34,13 +34,14 @@ public class Frame extends ScreenAdapter implements ClickListener{
     private BackgroundManager manager;
     private ShapeRenderer shapeRenderer;
     private MoneyManager money;
-    private BitmapFont ft;
+    static BitmapFont ft;
     private boolean pause;
     private Button resume;
     private Button quit;
     private Button retry;
     private Button settings;
     private Sprite filter;
+    private boolean isContinue;
 
 
     Frame(BackgroundManager manager){
@@ -118,18 +119,25 @@ public class Frame extends ScreenAdapter implements ClickListener{
 
     @Override
     public void show() {
-        pause=false;
-        camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        dj.playFon();
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        shapeRenderer.updateMatrices();
-        batch.setProjectionMatrix(camera.combined);
-        person.spawn();
-        enemy.spawn();
-        active=true;
-        manager.reSpawn();
-        money.respawn();
-        dj.playFon();
+        if(isContinue){
+            active = true;
+            dj.playFon();
+            pause = true;
+        }else {
+            manager.resume();
+            pause = false;
+            camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            dj.playFon();
+            shapeRenderer.setProjectionMatrix(camera.combined);
+            shapeRenderer.updateMatrices();
+            batch.setProjectionMatrix(camera.combined);
+            person.spawn();
+            enemy.spawn();
+            active = true;
+            manager.reSpawn();
+            money.respawn();
+            dj.playFon();
+        }
     }
 
 
@@ -137,6 +145,7 @@ public class Frame extends ScreenAdapter implements ClickListener{
     @Override
     public void pause() {
         pause=true;
+        manager.pause();
     }
 
     @Override
@@ -152,7 +161,13 @@ public class Frame extends ScreenAdapter implements ClickListener{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
         if(active) {
             if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-                pause=!pause;
+                if(pause){
+                    manager.resume();
+                    pause=false;
+                }else{
+                    manager.pause();
+                    pause=true;
+                }
             }
             if(!pause) {
                 update(delta);
@@ -193,6 +208,8 @@ public class Frame extends ScreenAdapter implements ClickListener{
         manager.drawDownGrass(batch);
         manager.drawFilter(batch);
         count.draw(batch);
+        money.drawCoin(batch);
+        ft.setColor(Color.CORAL);
         ft.draw(batch, person.getLong(), count.getX() + 10, count.getY() + 25);
         ft.draw(batch, Gdx.graphics.getFramesPerSecond() + " fps", 100, 500);
         if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
@@ -269,6 +286,7 @@ public class Frame extends ScreenAdapter implements ClickListener{
     @Override
     public void click(String id) {
         if(resume.id(id)){
+            manager.resume();
             pause=false;
         }
         if(quit.id(id)){
@@ -286,8 +304,8 @@ public class Frame extends ScreenAdapter implements ClickListener{
             pause=false;
         }
         if(settings.id(id)){
-            dj.stopFon();
-            MyGdxGame.myGdxGame.setSetting();
+            dj.pauseFon();
+            MyGdxGame.myGdxGame.setSetting(false);
         }
     }
 
@@ -314,5 +332,9 @@ public class Frame extends ScreenAdapter implements ClickListener{
 
     void setChose(int chose) {
         person.setChose(chose);
+    }
+
+    void setContinue(boolean isContinue) {
+        this.isContinue=isContinue;
     }
 }

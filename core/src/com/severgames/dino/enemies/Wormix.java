@@ -47,7 +47,7 @@ class Wormix {
             float h = Gdx.graphics.getHeight() / 5;
             float w = (h / sprite.getHeight() * sprite.getWidth());
             sprite.setSize(w, h);
-            sprite.setPosition(Gdx.graphics.getWidth()+sprite.getWidth()/2,H);
+            sprite.setPosition(X,H);
             w *=1.3f;
             h = w /wet.getWidth()*wet.getHeight();
             wet.setSize(w, h);

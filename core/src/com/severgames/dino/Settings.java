@@ -17,7 +17,7 @@ class Settings extends ScreenAdapter implements ClickListener {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private Button back;
-
+    private boolean isMenu;
 
 
     Settings(){
@@ -60,15 +60,25 @@ class Settings extends ScreenAdapter implements ClickListener {
 
     @Override
     public void show() {
+        MyGdxGame.dj.playSetting();
 
     }
 
     @Override
     public void click(String id) {
         if(back.id(id)){
+            MyGdxGame.dj.stopSetting();
             new Data().saveSettings(sound.getCheck(),music.getCheck());
             MyGdxGame.dj.setSettings(music.getCheck(),sound.getCheck());
-            MyGdxGame.myGdxGame.setMenu();
+            if(isMenu) {
+                MyGdxGame.myGdxGame.setMenu();
+            }else{
+                MyGdxGame.myGdxGame.setFrame(true);
+            }
         }
+    }
+
+    void setParent(boolean isMenu) {
+        this.isMenu=isMenu;
     }
 }

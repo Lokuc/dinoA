@@ -51,15 +51,15 @@ class Wall {
         h = he+sprite1.getHeight()/20f;
         w = (h/sprite1.getHeight()*sprite1.getWidth());
         sprite1.setSize(w,h);
-        sprite1.setPosition(Gdx.graphics.getWidth(),H);
+        sprite1.setPosition(X,H);
         h = he+sprite1.getHeight();
         w = (h/sprite2.getHeight()*sprite2.getWidth());
         sprite2.setSize(w,h);
-        sprite2.setPosition(Gdx.graphics.getWidth()+sprite1.getWidth()/6,H);
+        sprite2.setPosition(X+sprite1.getWidth()/6f,H);
         h = Gdx.graphics.getHeight()/1.7f;
         w = (h/sprite.getHeight()*sprite.getWidth());
         sprite.setSize(w,h);
-        sprite.setPosition(Gdx.graphics.getWidth()+sprite1.getWidth()/5,he+H+1);
+        sprite.setPosition(X+sprite1.getWidth()/5f,he+H+1);
     }
 
     Rectangle getRect(){

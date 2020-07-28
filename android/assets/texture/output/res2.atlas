@@ -2,222 +2,166 @@
 res2.png
 size: 2048,1024
 format: RGBA8888
-filter: Nearest,Nearest
+filter: Linear,Linear
 repeat: none
 0
   rotate: false
-  xy: 696, 243
+  xy: 354, 382
   size: 173, 216
   orig: 173, 216
   offset: 0, 0
   index: -1
 1
   rotate: false
-  xy: 2, 170
+  xy: 1156, 525
   size: 225, 281
   orig: 225, 281
   offset: 0, 0
   index: -1
 2
   rotate: false
-  xy: 874, 587
+  xy: 1156, 307
   size: 173, 216
   orig: 173, 216
   offset: 0, 0
   index: -1
 3
   rotate: false
-  xy: 354, 168
+  xy: 814, 171
   size: 340, 635
   orig: 340, 635
   offset: 0, 0
   index: -1
 KEY0
   rotate: false
-  xy: 1924, 943
+  xy: 1924, 946
+  size: 98, 68
+  orig: 98, 68
+  offset: 0, 0
+  index: -1
+coin
+  rotate: false
+  xy: 1924, 946
   size: 98, 68
   orig: 98, 68
   offset: 0, 0
   index: -1
 KEY1
   rotate: false
-  xy: 229, 383
+  xy: 1383, 738
   size: 98, 68
   orig: 98, 68
   offset: 0, 0
   index: -1
 KEY5
   rotate: false
-  xy: 229, 383
+  xy: 1383, 738
   size: 98, 68
   orig: 98, 68
   offset: 0, 0
   index: -1
 KEY2
   rotate: false
-  xy: 696, 173
+  xy: 2, 2
   size: 98, 68
   orig: 98, 68
   offset: 0, 0
   index: -1
 KEY4
   rotate: false
-  xy: 696, 173
+  xy: 2, 2
   size: 98, 68
   orig: 98, 68
   offset: 0, 0
   index: -1
 KEY3
   rotate: false
-  xy: 1572, 517
+  xy: 178, 178
   size: 98, 68
   orig: 98, 68
   offset: 0, 0
   index: -1
-anim0
+atchi
   rotate: false
-  xy: 1049, 587
-  size: 173, 216
-  orig: 173, 216
+  xy: 1331, 520
+  size: 5, 3
+  orig: 5, 3
   offset: 0, 0
   index: -1
-anim1
+count
   rotate: false
-  xy: 1224, 587
-  size: 173, 216
-  orig: 173, 216
-  offset: 0, 0
-  index: -1
-anim2
-  rotate: false
-  xy: 1399, 587
-  size: 173, 216
-  orig: 173, 216
-  offset: 0, 0
-  index: -1
-anim3
-  rotate: false
-  xy: 1574, 587
-  size: 173, 216
-  orig: 173, 216
-  offset: 0, 0
-  index: -1
-anim4
-  rotate: false
-  xy: 1749, 587
-  size: 173, 216
-  orig: 173, 216
-  offset: 0, 0
-  index: -1
-anim5
-  rotate: false
-  xy: 872, 369
-  size: 173, 216
-  orig: 173, 216
-  offset: 0, 0
-  index: -1
-anim6
-  rotate: false
-  xy: 1047, 369
-  size: 173, 216
-  orig: 173, 216
-  offset: 0, 0
-  index: -1
-down
-  rotate: false
-  xy: 1222, 369
-  size: 173, 216
-  orig: 173, 216
+  xy: 2, 600
+  size: 810, 206
+  orig: 810, 206
   offset: 0, 0
   index: -1
 fonEnemy
   rotate: false
-  xy: 696, 461
+  xy: 2, 72
   size: 174, 174
   orig: 174, 174
   offset: 0, 0
   index: -1
 fonEnemy2
   rotate: false
-  xy: 2, 453
+  xy: 2, 248
   size: 350, 350
   orig: 350, 350
   offset: 0, 0
   index: -1
-gopnik0
-  rotate: false
-  xy: 696, 637
-  size: 176, 166
-  orig: 176, 166
-  offset: 0, 0
-  index: -1
-gopnik1
-  rotate: false
-  xy: 2, 2
-  size: 176, 166
-  orig: 176, 166
-  offset: 0, 0
-  index: -1
 grass
   rotate: false
-  xy: 2, 805
+  xy: 2, 808
   size: 1920, 206
   orig: 1920, 206
   offset: 0, 0
   index: -1
 hide0
   rotate: false
-  xy: 1924, 873
+  xy: 354, 312
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 hide1
   rotate: false
-  xy: 229, 313
+  xy: 529, 530
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 hide2
   rotate: false
-  xy: 796, 173
+  xy: 1156, 237
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 hide3
   rotate: false
-  xy: 1572, 447
+  xy: 1924, 876
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 hide4
   rotate: false
-  xy: 1672, 517
+  xy: 1383, 668
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 hide5
   rotate: false
-  xy: 1924, 803
+  xy: 1483, 738
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 hide6
   rotate: false
-  xy: 229, 243
+  xy: 102, 2
   size: 68, 68
   orig: 68, 68
-  offset: 0, 0
-  index: -1
-up
-  rotate: false
-  xy: 1397, 369
-  size: 173, 216
-  orig: 173, 216
   offset: 0, 0
   index: -1

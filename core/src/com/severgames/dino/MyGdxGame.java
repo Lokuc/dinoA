@@ -39,11 +39,13 @@ public class MyGdxGame extends Game {
 	}
 
 
-	public void setFrame() {
+	public void setFrame(boolean isContinue) {
+		frame.setContinue(isContinue);
 		setScreen(frame);
 	}
 
-	public void setSetting(){
+	public void setSetting(boolean isMenu){
+		settings.setParent(isMenu);
 		setScreen(settings);
 	}
 
